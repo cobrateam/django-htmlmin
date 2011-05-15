@@ -4,6 +4,27 @@ django-htmlmin
 
 html minify for django
 
+Why minify HTML code?
+=====================
+
+One of important points on client side optimization is minify HTML, with minified HTML code, you reduce the size of data transferred from your server to your client, and your pages load faster.
+
+Installing
+==========
+
+For install django-htmlmin, run on terminal: ::
+
+    $ [sudo] pip install django-htmlmin
+
+Using the midleware
+===================
+
+All you need to do is add ``htmlmin.middleware.HtmlMinifyMiddleware`` to your ``MIDDLEWARE_CLASSES``: ::
+
+    MIDDLEWARE_CLASSES = (
+        # other middleware classes
+        'htmlmin.middleware.HtmlMinifyMiddleware',
+    )
 
 development
 ===========
