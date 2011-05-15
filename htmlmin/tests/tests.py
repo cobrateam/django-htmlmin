@@ -13,7 +13,7 @@ class TestMinify(unittest.TestCase):
         html_file_minified = resources_path('with_menu_minified.html')
 
         html = open(html_file).read()
-        html_minified = open(html_file_minified).read()
+        html_minified = open(html_file_minified).read().strip('\n')
 
         self.assertEqual(html_minified, html_minify(html))
 
