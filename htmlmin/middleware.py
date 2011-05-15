@@ -7,5 +7,3 @@ class HtmlMinifyMiddleware(object):
         if 'text/html' in response['Content-Type']:
             response.content = html_minify(response.content)
         return response
-
-
