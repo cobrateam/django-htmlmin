@@ -26,6 +26,10 @@ class TestMinify(unittest.TestCase):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_blank_lines')
         self.assertEqual(html_minified, html_minify(html))
 
+    def test_should_not_minify_content_from_script_tag(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_javascript')
+        self.assertEqual(html_minified, html_minify(html))
+
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
 
@@ -33,7 +37,7 @@ class TestMinify(unittest.TestCase):
 
         self.assertEqual(html_minified, html_minify(html))
 
-    def test_minify_should_return_a_unicode_object(self):
+    def test_minify_function_should_return_a_unicode_object(self):
         html = "<html>   <body>some text here</body>    </html>"
         html_minified = html_minify(html)
 
