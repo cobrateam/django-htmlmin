@@ -33,6 +33,12 @@ class TestMinify(unittest.TestCase):
 
         self.assertEqual(html_minified, html_minify(html))
 
+    def test_minify_should_return_a_unicode_object(self):
+        html = "<html>   <body>some text here</body>    </html>"
+        html_minified = html_minify(html)
+
+        self.assertEqual(type(html_minified), unicode)
+
 class ResponseMock(dict):
 
     def __init__(self, *args, **kwargs):
