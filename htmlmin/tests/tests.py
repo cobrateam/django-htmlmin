@@ -1,10 +1,21 @@
 import unittest
 
-from htmlmin.minify import html_minify
 from htmlmin.middleware import HtmlMinifyMiddleware
+from htmlmin.minify import html_minify
+from os.path import abspath, dirname, join
 
+resources_path = lambda *paths: abspath(join(dirname(__file__), 'resources', *paths))
 
 class TestMinify(unittest.TestCase):
+
+    def test_complete_html_should_be_minified(self):
+        html_file = resources_path('with_menu.html')
+        html_file_minified = resources_path('with_menu_minified.html')
+
+        html = open(html_file).read()
+        html_minified = open(html_file_minified).read()
+
+        self.assertEqual(html_minified, html_minify(html))
 
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
@@ -12,7 +23,6 @@ class TestMinify(unittest.TestCase):
         html_minified = "<html><body>some text here</body></html>"
 
         self.assertEqual(html_minified, html_minify(html))
-
 
 class ResponseMock(object):
 
