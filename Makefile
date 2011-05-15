@@ -1,5 +1,8 @@
 dependencies: coverage lxml django nose
 
+clean:
+	@find . -name "*.pyc" -delete
+
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
 
@@ -12,5 +15,5 @@ lxml:
 django:
 	@python -c 'import django' 2>/dev/null || pip install django
 
-test: dependencies
+test: dependencies clean
 	@nosetests --with-xunit --xunit-file=nose.xml --with-coverage --cover-erase --cover-package=htmlmin --verbosity=2 --where=htmlmin/tests
