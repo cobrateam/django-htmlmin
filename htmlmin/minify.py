@@ -3,7 +3,7 @@ from lxml import html
 def html_minify(html_code):
     html_code = unicode(html_code)
     dom = html.fromstring(html_code)
-    html_code = html.tostring(dom, method='xml', encoding=unicode)
+    html_code = html.tostring(dom, method='html', encoding=unicode)
 
     script = False
     minified_lines = []
