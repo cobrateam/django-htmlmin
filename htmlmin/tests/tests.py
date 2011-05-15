@@ -17,6 +17,15 @@ class TestMinify(unittest.TestCase):
 
         self.assertEqual(html_minified, html_minify(html))
 
+    def test_html_with_blank_lines_should_be_minify(self):
+        html_file = resources_path('with_blank_lines.html')
+        html_file_minified = resources_path('with_blank_lines_minified.html')
+
+        html = open(html_file).read()
+        html_minified = open(html_file_minified).read().strip('\n')
+
+        self.assertEqual(html_minified, html_minify(html))
+
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
 
