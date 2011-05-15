@@ -26,6 +26,26 @@ All you need to do is add ``htmlmin.middleware.HtmlMinifyMiddleware`` to your ``
         'htmlmin.middleware.HtmlMinifyMiddleware',
     )
 
+Using the html_minify function
+==============================
+
+If you are not working with Django, you can invoke the ``html_minify`` function manually: ::
+
+    from htmlmin.minify import html_minify
+    html_minify(YOUR_HTML_CODE)
+
+Here is an example of `Flask <http://flask.pocoo.org>`_ view: ::
+
+    from flask import Flask
+    from htmlmin.minify import html_minify
+
+    app = Flask(__name__)
+
+    @app.route('/')
+    def home():
+        rendered_html = render_template('home.html')
+        return html_minify(rendered_html)
+
 development
 ===========
 
