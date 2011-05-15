@@ -9,22 +9,21 @@ resources_path = lambda *paths: abspath(join(dirname(__file__), 'resources', *pa
 
 class TestMinify(unittest.TestCase):
 
-    def test_complete_html_should_be_minified(self):
-        html_file = resources_path('with_menu.html')
-        html_file_minified = resources_path('with_menu_minified.html')
+    def _get_normal_and_minified_content_from_html_files(self, filename):
+        html_file = resources_path('%s.html' % filename)
+        html_file_minified = resources_path('%s_minified.html' % filename)
 
         html = open(html_file).read()
         html_minified = open(html_file_minified).read().strip('\n')
 
+        return html, html_minified
+
+    def test_complete_html_should_be_minified(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_menu')
         self.assertEqual(html_minified, html_minify(html))
 
     def test_html_with_blank_lines_should_be_minify(self):
-        html_file = resources_path('with_blank_lines.html')
-        html_file_minified = resources_path('with_blank_lines_minified.html')
-
-        html = open(html_file).read()
-        html_minified = open(html_file_minified).read().strip('\n')
-
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_blank_lines')
         self.assertEqual(html_minified, html_minify(html))
 
     def test_html_should_be_minified(self):
