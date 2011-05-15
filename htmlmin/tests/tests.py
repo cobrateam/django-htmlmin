@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 from htmlmin.middleware import HtmlMinifyMiddleware
@@ -37,7 +38,14 @@ class TestMinify(unittest.TestCase):
         html = "<html>   <body>some text here</body>    </html>"
         html_minified = html_minify(html)
 
-        self.assertEqual(type(html_minified), unicode)
+        self.assertEqual(unicode, type(html_minified))
+
+    def test_minify_should_respect_encoding(self):
+        html = u"<html>    <body>Olá mundo!</body>    </html>"
+
+        html_minified = u"<html><body>Olá mundo!</body></html>"
+
+        self.assertEqual(html_minified, html_minify(html))
 
 class ResponseMock(dict):
 
