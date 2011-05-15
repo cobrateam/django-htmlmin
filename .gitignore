@@ -4,3 +4,6 @@
 .coverage
 coverage.xml
 nose.xml
+build/
+dist/
+*.egg-info/
