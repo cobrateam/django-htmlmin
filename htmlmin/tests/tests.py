@@ -51,6 +51,15 @@ class TestMiddleware(unittest.TestCase):
 
         self.assertEqual(response.content, html_minified)
 
+    def test_middleware_should_minify_with_any_charset(self):
+        response_mock = ResponseMock()
+        response_mock['Content-Type'] = 'text/html; charset=utf-8'
+        response = HtmlMinifyMiddleware().process_response(None, response_mock)
+
+        html_minified = "<html><body>some text here</body></html>"
+
+        self.assertEqual(response.content, html_minified)
+
     def test_middleware_should_not_be_minify_response_when_mime_type_not_is_html(self):
         response_mock = ResponseMock()
         response_mock['Content-Type'] = 'application/json'
