@@ -12,3 +12,9 @@ class TestUtil(unittest.TestCase):
         unicode_object = "Blá blá".decode("utf-8").encode("latin-1")
         string = str(unicode_object)
         self.assertEqual(u"Blá blá", force_decode(string))
+
+    def test_should_be_able_to_chose_the_encoding(self):
+        ENCODING = 'IBM857'
+        unicode_object = "Blá blá".decode("utf-8").encode(ENCODING)
+        string = str(unicode_object)
+        self.assertEqual(u"Blá blá", force_decode(string, encoding=ENCODING))
