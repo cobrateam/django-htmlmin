@@ -1,7 +1,8 @@
 from lxml import html
+from util import force_decode
 
 def html_minify(html_code):
-    html_code = unicode(html_code)
+    html_code = force_decode(html_code)
     dom = html.fromstring(html_code)
     html_code = html.tostring(dom, method='html', encoding=unicode)
 
