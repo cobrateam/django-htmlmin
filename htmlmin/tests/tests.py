@@ -42,6 +42,11 @@ class TestMinify(unittest.TestCase):
 
     def test_minify_should_respect_encoding(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('blogpost')
+        print "\n\n"
+        print html_minified
+        print "\n\n"
+        print html_minify(html)
+        print "\n\n"
         self.assertEqual(html_minified, html_minify(html))
 
 class ResponseMock(dict):
