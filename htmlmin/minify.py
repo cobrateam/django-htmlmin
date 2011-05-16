@@ -13,15 +13,15 @@ def html_minify(html_code):
             script = False
 
         if script:
-            minified_line = "%s\n" % line.rstrip()
+            minified_line = u"%s\n" % line.rstrip()
         else:
             minified_line = line.strip()
 
-        minified_lines.append(minified_line)
+        minified_lines.append(str(minified_line.encode('utf-8')))
 
         if '<script' in line:
             script = True
             first = True
             minified_lines.append('\n')
 
-    return u"".join(minified_lines)
+    return "".join(minified_lines)

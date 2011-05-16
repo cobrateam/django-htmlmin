@@ -35,10 +35,10 @@ class TestMinify(unittest.TestCase):
         html_minified = "<html><body>some text here</body></html>"
         self.assertEqual(html_minified, html_minify(html))
 
-    def test_minify_function_should_return_a_unicode_object(self):
+    def test_minify_function_should_return_a_str_object(self):
         html = "<html>   <body>some text here</body>    </html>"
         html_minified = html_minify(html)
-        self.assertEqual(unicode, type(html_minified))
+        self.assertEqual(str, type(html_minified))
 
     def test_minify_should_respect_encoding(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('blogpost')
