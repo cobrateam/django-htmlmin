@@ -41,8 +41,7 @@ class TestMinify(unittest.TestCase):
         self.assertEqual(unicode, type(html_minified))
 
     def test_minify_should_respect_encoding(self):
-        html = u"<html>    <body>Olá mundo!</body>    </html>"
-        html_minified = u"<html><body>Olá mundo!</body></html>"
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('blogpost')
         self.assertEqual(html_minified, html_minify(html))
 
 class ResponseMock(dict):
