@@ -32,7 +32,8 @@ Using the html_minify function
 If you are not working with Django, you can invoke the ``html_minify`` function manually: ::
 
     from htmlmin.minify import html_minify
-    html_minify(YOUR_HTML_CODE)
+    html = '<html>    <body>Hello world</body>    </html>'
+    minified_html = html_minify(html)
 
 Here is an example of `Flask <http://flask.pocoo.org>`_ view: ::
 
