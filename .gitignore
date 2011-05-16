@@ -7,3 +7,4 @@ nose.xml
 build/
 dist/
 *.egg-info/
+.ropeproject
