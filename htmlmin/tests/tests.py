@@ -32,22 +32,17 @@ class TestMinify(unittest.TestCase):
 
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
-
         html_minified = "<html><body>some text here</body></html>"
-
         self.assertEqual(html_minified, html_minify(html))
 
     def test_minify_function_should_return_a_unicode_object(self):
         html = "<html>   <body>some text here</body>    </html>"
         html_minified = html_minify(html)
-
         self.assertEqual(unicode, type(html_minified))
 
     def test_minify_should_respect_encoding(self):
         html = u"<html>    <body>Olá mundo!</body>    </html>"
-
         html_minified = u"<html><body>Olá mundo!</body></html>"
-
         self.assertEqual(html_minified, html_minify(html))
 
 class ResponseMock(dict):
