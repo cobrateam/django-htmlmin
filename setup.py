@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 README = open('README.rst').read()
 
 setup(name='django-htmlmin',
-      version='0.0.1',
+      version='0.0.2',
       description='html minify for django',
       long_description=README,
       author='CobraTeam',
