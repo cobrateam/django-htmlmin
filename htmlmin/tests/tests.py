@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from htmlmin.middleware import HtmlMinifyMiddleware
 from htmlmin.minify import html_minify
-from mocks import ResponseMock
 from os.path import abspath, dirname, join
 
 resources_path = lambda *paths: abspath(join(dirname(__file__), 'resources', *paths))
@@ -64,36 +62,3 @@ class TestMinify(unittest.TestCase):
     def test_should_be_able_to_exclude_multiple_comments_on_a_page(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_multiple_comments')
         self.assertEqual(html_minified, html_minify(html))
-
-class TestMiddleware(unittest.TestCase):
-
-    def test_middleware_should_minify_only_when_status_code_is_200(self):
-        response_mock = ResponseMock()
-        response_mock.status_code = 301
-        response = HtmlMinifyMiddleware().process_response(None, response_mock)
-
-        html_not_minified = "<html>   <body>some text here</body>    </html>"
-        self.assertEqual(html_not_minified, response.content)
-
-    def test_middleware_should_be_minify_response_when_mime_type_is_html(self):
-        response_mock = ResponseMock()
-        response = HtmlMinifyMiddleware().process_response(None, response_mock)
-
-        html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
-        self.assertEqual(html_minified, response.content)
-
-    def test_middleware_should_minify_with_any_charset(self):
-        response_mock = ResponseMock()
-        response_mock['Content-Type'] = 'text/html; charset=utf-8'
-        response = HtmlMinifyMiddleware().process_response(None, response_mock)
-
-        html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
-        self.assertEqual(html_minified, response.content)
-
-    def test_middleware_should_not_be_minify_response_when_mime_type_not_is_html(self):
-        response_mock = ResponseMock()
-        response_mock['Content-Type'] = 'application/json'
-        response = HtmlMinifyMiddleware().process_response(None, response_mock)
-
-        html_not_minified = "<html>   <body>some text here</body>    </html>"
-        self.assertEqual(html_not_minified, response.content)
