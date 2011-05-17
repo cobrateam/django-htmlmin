@@ -1,14 +1,17 @@
 from lxml import html
 from util import force_decode
 
-def html_minify(html_code):
+def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
     dom = html.fromstring(html_code)
     html_code = html.tostring(dom, method='html', encoding=unicode)
 
     script = False
     lines = html_code.split('\n')
-    lines = [ line for line in lines if '<!--' not in line ]
+
+    if ignore_comments:
+        lines = [ line for line in lines if '<!--' not in line ]
+
     minified_lines = []
     for line in lines:
         if '</script>' in line:
