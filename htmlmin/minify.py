@@ -26,7 +26,6 @@ def html_minify(html_code, ignore_comments=True):
 
         if '<script' in line:
             script = True
-            first = True
             minified_lines.append('\n')
 
     content = "".join(minified_lines)
