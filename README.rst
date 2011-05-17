@@ -47,6 +47,15 @@ Here is an example of `Flask <http://flask.pocoo.org>`_ view: ::
         rendered_html = render_template('home.html')
         return html_minify(rendered_html)
 
+Keeping comments
+----------------
+
+By default, ``html_minify`` function removes all comments. If you want to keep them, you can pass ``False`` as value to ``ignore_comments`` parameter on that function: ::
+
+    from htmlmin.minify import html_minify
+    html = '<html>    <body>Hello world<!-- comment to keep --></body>    </html>'
+    minified_html = html_minify(html, ignore_comments=False)
+
 development
 ===========
 
