@@ -56,6 +56,10 @@ class TestMinify(unittest.TestCase):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_comments')
         self.assertEqual(html_minified, html_minify(html, ignore_comments=False))
 
+    def test_should_be_able_to_exclude_multiline_comments(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_multiple_comments')
+        self.assertEqual(html_minified, html_minify(html))
+
 class ResponseMock(dict):
 
     def __init__(self, *args, **kwargs):
