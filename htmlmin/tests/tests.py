@@ -81,14 +81,14 @@ class TestMiddleware(unittest.TestCase):
         response = HtmlMinifyMiddleware().process_response(None, response_mock)
 
         html_not_minified = "<html>   <body>some text here</body>    </html>"
-        self.assertEqual(response.content, html_not_minified)
+        self.assertEqual(html_not_minified, response.content)
 
     def test_middleware_should_be_minify_response_when_mime_type_is_html(self):
         response_mock = ResponseMock()
         response = HtmlMinifyMiddleware().process_response(None, response_mock)
 
         html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
-        self.assertEqual(response.content, html_minified)
+        self.assertEqual(html_minified, response.content)
 
     def test_middleware_should_minify_with_any_charset(self):
         response_mock = ResponseMock()
@@ -96,7 +96,7 @@ class TestMiddleware(unittest.TestCase):
         response = HtmlMinifyMiddleware().process_response(None, response_mock)
 
         html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
-        self.assertEqual(response.content, html_minified)
+        self.assertEqual(html_minified, response.content)
 
     def test_middleware_should_not_be_minify_response_when_mime_type_not_is_html(self):
         response_mock = ResponseMock()
@@ -104,4 +104,4 @@ class TestMiddleware(unittest.TestCase):
         response = HtmlMinifyMiddleware().process_response(None, response_mock)
 
         html_not_minified = "<html>   <body>some text here</body>    </html>"
-        self.assertEqual(response.content, html_not_minified)
+        self.assertEqual(html_not_minified, response.content)
