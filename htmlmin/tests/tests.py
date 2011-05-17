@@ -3,6 +3,7 @@ import unittest
 
 from htmlmin.middleware import HtmlMinifyMiddleware
 from htmlmin.minify import html_minify
+from mocks import ResponseMock
 from os.path import abspath, dirname, join
 
 resources_path = lambda *paths: abspath(join(dirname(__file__), 'resources', *paths))
@@ -63,15 +64,6 @@ class TestMinify(unittest.TestCase):
     def test_should_be_able_to_exclude_multiple_comments_on_a_page(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_multiple_comments')
         self.assertEqual(html_minified, html_minify(html))
-
-class ResponseMock(dict):
-
-    def __init__(self, *args, **kwargs):
-        super(ResponseMock, self).__init__(*args, **kwargs)
-        self['Content-Type'] = 'text/html'
-
-    status_code = 200
-    content = "<html>   <body>some text here</body>    </html>"
 
 class TestMiddleware(unittest.TestCase):
 
