@@ -2,6 +2,10 @@ import re
 from lxml import html
 from util import force_decode
 
+def drop_comments(content):
+    comment_regexes = re.compile('<!--(.|\s)*?-->')
+    return comment_regexes.sub('', content)
+
 def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
     dom = html.fromstring(html_code)
@@ -32,7 +36,6 @@ def html_minify(html_code, ignore_comments=True):
         content = "<!DOCTYPE html>%s" % content
 
     if ignore_comments:
-        comment_regexes = re.compile('<!--.*-->')
-        content = comment_regexes.sub('', content)
+        content = drop_comments(content)
 
     return content
