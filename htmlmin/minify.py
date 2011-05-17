@@ -24,4 +24,9 @@ def html_minify(html_code):
             first = True
             minified_lines.append('\n')
 
-    return "".join(minified_lines)
+    content = "".join(minified_lines)
+
+    if "DOCTYPE" not in content:
+        content = "<!DOCTYPE html>%s" % content
+
+    return content

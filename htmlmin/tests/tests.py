@@ -32,7 +32,7 @@ class TestMinify(unittest.TestCase):
 
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
-        html_minified = "<html><body>some text here</body></html>"
+        html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
         self.assertEqual(html_minified, html_minify(html))
 
     def test_minify_function_should_return_a_str_object(self):
@@ -42,6 +42,10 @@ class TestMinify(unittest.TestCase):
 
     def test_minify_should_respect_encoding(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('blogpost')
+        self.assertEqual(html_minified, html_minify(html))
+
+    def test_minify_should_always_include_doctype(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('without_doctype')
         self.assertEqual(html_minified, html_minify(html))
 
 class ResponseMock(dict):
@@ -67,7 +71,7 @@ class TestMiddleware(unittest.TestCase):
         response_mock = ResponseMock()
         response = HtmlMinifyMiddleware().process_response(None, response_mock)
 
-        html_minified = "<html><body>some text here</body></html>"
+        html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
         self.assertEqual(response.content, html_minified)
 
     def test_middleware_should_minify_with_any_charset(self):
@@ -75,7 +79,7 @@ class TestMiddleware(unittest.TestCase):
         response_mock['Content-Type'] = 'text/html; charset=utf-8'
         response = HtmlMinifyMiddleware().process_response(None, response_mock)
 
-        html_minified = "<html><body>some text here</body></html>"
+        html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
         self.assertEqual(response.content, html_minified)
 
     def test_middleware_should_not_be_minify_response_when_mime_type_not_is_html(self):
