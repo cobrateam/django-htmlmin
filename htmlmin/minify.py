@@ -7,8 +7,10 @@ def html_minify(html_code):
     html_code = html.tostring(dom, method='html', encoding=unicode)
 
     script = False
+    lines = html_code.split('\n')
+    lines = [ line for line in lines if '<!--' not in line ]
     minified_lines = []
-    for line in html_code.split('\n'):
+    for line in lines:
         if '</script>' in line:
             script = False
 
