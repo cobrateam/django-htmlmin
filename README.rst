@@ -26,6 +26,17 @@ All you need to do is add ``htmlmin.middleware.HtmlMinifyMiddleware`` to your ``
         'htmlmin.middleware.HtmlMinifyMiddleware',
     )
 
+Using the decorator
+===================
+
+django-htmlmin also provides a decorator, that you can use only on views you want to minify the response: ::
+
+    from htmlmin.decorators import minified_response
+
+    @minified_response
+    def home(request):
+        return render_to_response('home.html')
+
 Using the html_minify function
 ==============================
 
