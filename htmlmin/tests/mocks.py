@@ -11,6 +11,3 @@ class ResponseMock(dict):
 
     status_code = 200
     content = "<html>   <body>some text here</body>    </html>"
-
-class SettingsMock(object):
-    EXCLUDE_FROM_MINIFYING = ('^raw',)

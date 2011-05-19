@@ -1,0 +1,1 @@
+EXCLUDE_FROM_MINIFYING = ('^raw',)
