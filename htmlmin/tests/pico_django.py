@@ -6,9 +6,9 @@ Description: Code based on snippet available here: https://github.com/readevalpr
 
 from django.http import HttpResponse
 from django.conf.urls.defaults import patterns
+from htmlmin.decorators import minified_response
 DEBUG=True
 ROOT_URLCONF = 'pico_django'
-DATABASES = { 'default': {} }
 
 CONTENT = '''
 <html>
@@ -19,10 +19,11 @@ CONTENT = '''
 </html>
     '''
 
-def minified(request, name):
+@minified_response
+def minified(request):
     return HttpResponse(CONTENT)
 
-def raw():
+def raw(request):
     return HttpResponse(CONTENT)
 
-urlpatterns = patterns('', (r'^/?$', minified))
+urlpatterns = patterns('', (r'^min$', minified), (r'^raw$', raw))
