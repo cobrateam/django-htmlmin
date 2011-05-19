@@ -22,4 +22,4 @@ pico_django:
 	@cd htmlmin/tests && PYTHONPATH=../..:.:$$PYTHONPATH django-admin.py runserver 0.0.0.0:8000 --settings=pico_django
 
 kill_pico_django:
-	@kill -9 `ps aux | grep "django-admin.py runserver 0.0.0.0:8000" | awk '{print $2}'`
+	@kill -9 `ps aux | grep "django-admin.py runserver 0.0.0.0:8000" | awk '{print $$2}'`
