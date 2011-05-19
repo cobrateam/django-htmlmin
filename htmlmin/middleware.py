@@ -1,6 +1,5 @@
 from htmlmin.minify import html_minify
 
-
 class HtmlMinifyMiddleware(object):
 
     def process_response(self, request, response):
