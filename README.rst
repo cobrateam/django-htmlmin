@@ -26,6 +26,15 @@ All you need to do is add ``htmlmin.middleware.HtmlMinifyMiddleware`` to your ``
         'htmlmin.middleware.HtmlMinifyMiddleware',
     )
 
+Excluding some URLs
+-------------------
+
+If you don't want to minify all views in your app and it's under a ``/my_app`` URL, you can tell the middleware to not minify the response of your views by adding a ``EXCLUDE_FROM_MINIFYING`` setting on your settings.py: ::
+
+    EXCLUDE_FROM_MINIFYING = ('^my_app/', '^admin/')
+
+As you can see, you use a regex pattern for URL exclusion. If you want to exclude all URLs of your app, except a specific view, you can use the decorator ``minified_response`` (check the next section above).
+
 Using the decorator
 ===================
 
