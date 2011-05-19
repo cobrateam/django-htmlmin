@@ -1,4 +1,4 @@
-dependencies: coverage django lxml specloud mocker
+dependencies: coverage django lxml specloud
 
 clean:
 	@find . -name "*.pyc" -delete
@@ -11,9 +11,6 @@ django:
 
 lxml:
 	@python -c 'import lxml' 2>/dev/null || pip install lxml
-
-mocker:
-	@python -c 'import mocker' 2>/dev/null || pip install mocker
 
 specloud:
 	@python -c 'import specloud' 2>/dev/null || pip install specloud
