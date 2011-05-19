@@ -2,8 +2,8 @@ import os
 import subprocess
 from urllib import urlopen
 
-MY_DIR = os.path.dirname(__file__)
-MAKE_PATH = os.path.abspath(os.path.join(MY_DIR, '..', '..'))
+TESTS_DIR = os.path.dirname(__file__)
+MAKE_PATH = os.path.abspath(os.path.join(TESTS_DIR, '..', '..'))
 
 class Server(object):
 
