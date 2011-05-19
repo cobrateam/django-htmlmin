@@ -1,4 +1,4 @@
-dependencies: coverage lxml specloud django
+dependencies: coverage django lxml specloud mocker
 
 clean:
 	@find . -name "*.pyc" -delete
@@ -6,14 +6,17 @@ clean:
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
 
-specloud:
-	@python -c 'import specloud' 2>/dev/null || pip install specloud
+django:
+	@python -c 'import django' 2>/dev/null || pip install django
 
 lxml:
 	@python -c 'import lxml' 2>/dev/null || pip install lxml
 
-django:
-	@python -c 'import django' 2>/dev/null || pip install django
+mocker:
+	@python -c 'import mocker' 2>/dev/null || pip install mocker
+
+specloud:
+	@python -c 'import specloud' 2>/dev/null || pip install specloud
 
 test: dependencies clean
 	@specloud --with-xunit --xunit-file=nose.xml --with-coverage --cover-erase --cover-package=htmlmin --verbosity=2 --where=htmlmin/tests
