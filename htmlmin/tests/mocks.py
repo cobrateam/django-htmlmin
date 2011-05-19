@@ -1,3 +1,8 @@
+class RequestMock(object):
+
+    def __init__(self, path="/"):
+        self.path = path
+
 class ResponseMock(dict):
 
     def __init__(self, *args, **kwargs):
