@@ -53,5 +53,3 @@ class TestMiddleware(unittest.TestCase):
         response_mock = ResponseMock()
         response = HtmlMinifyMiddleware().process_response(RequestMock('/raw/'), response_mock)
         self.assertEqual(html_not_minified, response.content)
-
-        self.mocker.verify()
