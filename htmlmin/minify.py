@@ -1,11 +1,8 @@
-from lxml import html
 from lxml.html.clean import Cleaner
 from util import force_decode
 
 def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
-    dom = html.fromstring(html_code)
-    html_code = html.tostring(dom, method='html', encoding=unicode)
 
     cleaner = Cleaner(scripts=False, javascript=False, comments=ignore_comments, links=False, meta=False, page_structure=False, processing_instructions=False, embedded=False, frames=False, forms=False, annoying_tags=False, remove_unknown_tags=False, safe_attrs_only=False)
     html_code = cleaner.clean_html(html_code)
