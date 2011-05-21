@@ -68,3 +68,8 @@ class TestMinify(unittest.TestCase):
         html = '<html><body>\n<select name="gender" multiple="multiple">\n    <option value="M" selected="selected">Male</option>\n    <option value="F">Female</option>\n</select></body></html>'
         html_minified = '<!DOCTYPE html><html><body><select name="gender" multiple="multiple"><option value="M" selected="selected">Male</option><option value="F">Female</option></select></body></html>'
         assert_equals(html_minified, html_minify(html))
+
+    def test_should_touch_attributes_only_on_tags(self):
+        html = '<html>    <body>I selected you!</body>    </html>'
+        html_minified = '<!DOCTYPE html><html><body>I selected you!</body></html>'
+        assert_equals(html_minified, html_minify(html))

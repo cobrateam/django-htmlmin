@@ -1,4 +1,4 @@
-dependencies: coverage django lxml specloud
+dependencies: coverage django BeautifulSoup specloud
 
 clean:
 	@find . -name "*.pyc" -delete
@@ -9,8 +9,8 @@ coverage:
 django:
 	@python -c 'import django' 2>/dev/null || pip install django
 
-lxml:
-	@python -c 'import lxml' 2>/dev/null || pip install lxml
+BeautifulSoup:
+	@python -c 'import BeautifulSoup' 2>/dev/null || pip install BeautifulSoup
 
 specloud:
 	@python -c 'import specloud' 2>/dev/null || pip install specloud
