@@ -25,10 +25,10 @@ def html_minify(html_code, ignore_comments=True):
         else:
             minified_line = line.strip()
 
-        minified_lines.append(str(minified_line))
-
-        if not minified_line.startswith('<') and not last_line.endswith('>'):
+        if (minified_line.startswith('<') and not minified_line.startswith('</') and not last_line.endswith('>')):
             minified_lines.append(' ')
+
+        minified_lines.append(str(minified_line))
 
         if '<script' in line:
             script = True
