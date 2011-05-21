@@ -7,15 +7,16 @@ def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
     soup = BeautifulSoup(html_code)
 
-    if ignore_comments:
-        [ comment.extract() for comment in soup.findAll(text=lambda text:isinstance(text, Comment)) ]
-
     scripts = [ str(script) for script in soup.findAll(name='script') if len(script.text) > 0 ]
 
     for index, script in enumerate(scripts):
         html_code = html_code.replace(script, SCRIPT_PATTERN % index)
 
     soup = BeautifulSoup(html_code)
+
+    if ignore_comments:
+        [ comment.extract() for comment in soup.findAll(text=lambda text:isinstance(text, Comment)) ]
+
     html_code = soup.prettify()
     lines = html_code.split('\n')
     minified_lines = []
