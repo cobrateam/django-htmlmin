@@ -1,3 +1,4 @@
+import re
 from BeautifulSoup import BeautifulSoup, Comment
 from util import force_decode
 
@@ -17,11 +18,12 @@ def html_minify(html_code, ignore_comments=True):
     if ignore_comments:
         [ comment.extract() for comment in soup.findAll(text=lambda text:isinstance(text, Comment)) ]
 
-    html_code = soup.prettify()
+    html_code = str(soup)
     lines = html_code.split('\n')
     minified_lines = []
+    last_line = '<>'
 
-    for line in lines:
+    for index, line in enumerate(lines):
         minified_line = line.strip()
         minified_lines.append(str(minified_line))
 

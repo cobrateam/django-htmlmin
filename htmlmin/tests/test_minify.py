@@ -32,7 +32,7 @@ class TestMinify(unittest.TestCase):
 
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
-        html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
+        html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
         assert_equals(html_minified, html_minify(html))
 
     def test_minify_function_should_return_a_str_object(self):
@@ -70,6 +70,6 @@ class TestMinify(unittest.TestCase):
         assert_equals(html_minified, html_minify(html))
 
     def test_should_touch_attributes_only_on_tags(self):
-        html = '<html>    <body>I selected you!</body>    </html>'
+        html = '<html>\n    <body>I selected you!</body>\n    </html>'
         html_minified = '<!DOCTYPE html><html><body>I selected you!</body></html>'
         assert_equals(html_minified, html_minify(html))

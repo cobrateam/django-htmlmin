@@ -30,7 +30,7 @@ class TestMiddleware(unittest.TestCase):
         response_mock = ResponseMock()
         response = HtmlMinifyMiddleware().process_response(RequestMock(), response_mock)
 
-        html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
+        html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
         assert_equals(html_minified, response.content)
 
     def test_middleware_should_minify_with_any_charset(self):
@@ -38,7 +38,7 @@ class TestMiddleware(unittest.TestCase):
         response_mock['Content-Type'] = 'text/html; charset=utf-8'
         response = HtmlMinifyMiddleware().process_response(RequestMock(), response_mock)
 
-        html_minified = "<!DOCTYPE html><html><body>some text here</body></html>"
+        html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
         assert_equals(html_minified, response.content)
 
     def test_middleware_should_not_minify_response_when_mime_type_not_is_html(self):
