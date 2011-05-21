@@ -1,6 +1,12 @@
 from lxml.html.clean import Cleaner
 from util import force_decode
 
+TO_REPLACE = {
+    'multiple' : 'multiple="multiple"',
+    'selected' : 'selected="selected"',
+    'checked' : 'checked="checked"',
+}
+
 def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
 
@@ -27,6 +33,9 @@ def html_minify(html_code, ignore_comments=True):
             minified_lines.append('\n')
 
     content = "".join(minified_lines)
+
+    for search, replace in TO_REPLACE.items():
+        content = content.replace(search, replace)
 
     if "DOCTYPE" not in content:
         content = "<!DOCTYPE html>%s" % content

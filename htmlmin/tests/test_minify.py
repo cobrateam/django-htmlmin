@@ -66,5 +66,5 @@ class TestMinify(unittest.TestCase):
 
     def test_should_keep_html_attributes_intact(self):
         html = '<html><body>\n<select name="gender" multiple="multiple">\n    <option value="M" selected="selected">Male</option>\n    <option value="F">Female</option>\n</select></body></html>'
-        html_minified = '<!DOCTYPE html><html><body><select name="gender" multiple="multiple"><option value="M" selected="selected">Male</option><option value="F">Female</option>\n</select></body></html>'
+        html_minified = '<!DOCTYPE html><html><body><select name="gender" multiple="multiple"><option value="M" selected="selected">Male</option><option value="F">Female</option></select></body></html>'
         assert_equals(html_minified, html_minify(html))
