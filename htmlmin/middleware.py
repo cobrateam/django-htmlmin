@@ -6,11 +6,13 @@ class HtmlMinifyMiddleware(object):
 
     def can_minify_response(self, request, response):
         is_request_ok = True
-        for url_pattern in settings.EXCLUDE_FROM_MINIFYING:
-            regex = re.compile(url_pattern)
-            if regex.match(request.path.lstrip('/')):
-                is_request_ok = False
-                break
+
+        if hasattr(settings, 'EXCLUDE_FROM_MINIFYING'):
+            for url_pattern in settings.EXCLUDE_FROM_MINIFYING:
+                regex = re.compile(url_pattern)
+                if regex.match(request.path.lstrip('/')):
+                    is_request_ok = False
+                    break
 
         is_response_ok = response.status_code == 200 and 'text/html' in response['Content-Type']
         return is_request_ok and is_response_ok

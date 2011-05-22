@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+from django.conf import settings
 from htmlmin.middleware import HtmlMinifyMiddleware
 from htmlmin.tests import TESTS_DIR
 from mocks import RequestMock, ResponseMock
@@ -54,3 +55,13 @@ class TestMiddleware(unittest.TestCase):
         response_mock = ResponseMock()
         response = HtmlMinifyMiddleware().process_response(RequestMock('/raw/'), response_mock)
         assert_equals(html_not_minified, response.content)
+
+    def test_middleware_should_minify_if_exclude_from_minifying_is_not_set(self):
+        old = settings.EXCLUDE_FROM_MINIFYING
+        del settings.EXCLUDE_FROM_MINIFYING
+
+        html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), ResponseMock())
+        assert_equals(html_minified, response.content)
+
+        settings.EXCLUDE_FROM_MINIFYING = old
