@@ -1,13 +1,17 @@
 import unittest
-from urllib import urlopen
+from django.test.client import Client
 from nose.tools import assert_equals
 
 class TestDecorator(unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        cls.client = Client()
+
     def test_should_minify_the_content_of_a_view_decorated(self):
-        content = urlopen('http://localhost:8000/min').read()
+        response = self.client.get('/min')
         minified = '<!DOCTYPE html><html><body><p>Hello world! :D</p><div>Copyright 3000</div></body></html>'
-        assert_equals(minified, content)
+        assert_equals(minified, response.content)
 
     def should_not_touch_the_content_of_an_undecorated_view(self):
         expected = '''
@@ -18,5 +22,5 @@ class TestDecorator(unittest.TestCase):
     </body>
 </html>
     '''
-        content = urlopen('http://localhost:8000/raw').read()
-        assert_equals(expected, content)
+        response = self.client.get('/raw')
+        assert_equals(expected, response.content)

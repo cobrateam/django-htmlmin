@@ -7,8 +7,6 @@ Description: Code based on snippet available here: https://github.com/readevalpr
 from django.http import HttpResponse
 from django.conf.urls.defaults import patterns
 from htmlmin.decorators import minified_response
-DEBUG=True
-ROOT_URLCONF = 'pico_django'
 
 CONTENT = '''
 <html>

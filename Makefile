@@ -1,4 +1,4 @@
-dependencies: coverage django BeautifulSoup specloud
+dependencies: coverage django BeautifulSoup specloud nosedjango
 
 clean:
 	@find . -name "*.pyc" -delete
@@ -15,11 +15,8 @@ BeautifulSoup:
 specloud:
 	@python -c 'import specloud' 2>/dev/null || pip install specloud
 
+nosedjango:
+	@python -c 'import nosedjango' 2>/dev/null || pip install nosedjango
+
 test: dependencies clean
-	@specloud --with-xunit --xunit-file=nose.xml --with-coverage --cover-erase --cover-package=htmlmin --verbosity=2 --where=htmlmin/tests
-
-pico_django:
-	@cd htmlmin/tests && PYTHONPATH=../..:.:$$PYTHONPATH django-admin.py runserver 0.0.0.0:8000 --settings=pico_django
-
-kill_pico_django:
-	@kill -9 `ps aux | grep "django-admin.py runserver 0.0.0.0:8000" | awk '{print $$2}'`
+	@specloud --with-xunit --xunit-file=nose.xml --with-coverage --with-django --django-settings=htmlmin.tests.mock_settings --django-sqlite=use_sqlite --cover-erase --cover-package=htmlmin --verbosity=2 --where=htmlmin/tests
