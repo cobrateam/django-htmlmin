@@ -12,7 +12,7 @@ setup(name='django-htmlmin',
       packages=find_packages(),
       include_package_data=True,
       test_suite='nose.collector',
-      install_requires=['django', 'BeautifulSoup'],
+      install_requires=['argparse', 'django', 'BeautifulSoup'],
       tests_require=['nose', 'coverage'],
       entry_points = {
           'console_scripts' : [
