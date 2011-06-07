@@ -1,4 +1,3 @@
-import re
 from BeautifulSoup import BeautifulSoup, Comment
 from util import force_decode
 
