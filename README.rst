@@ -76,6 +76,26 @@ By default, ``html_minify`` function removes all comments. If you want to keep t
     html = '<html>    <body>Hello world<!-- comment to keep --></body>    </html>'
     minified_html = html_minify(html, ignore_comments=False)
 
+
+Using command line tool
+=======================
+
+If you are not even using Python, you can use the ``pyminify`` command line tool to minify HTML files:
+
+.. highlight:: bash
+
+::
+
+    $ pyminify index.html > index_minified.html
+
+You can also keep comments, if you want:
+
+.. highlight:: bash
+
+::
+
+    $ pyminify --keep-comments index.html > index_minified_with_comments.html
+
 development
 ===========
 
