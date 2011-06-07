@@ -14,4 +14,9 @@ setup(name='django-htmlmin',
       test_suite='nose.collector',
       install_requires=['django', 'BeautifulSoup'],
       tests_require=['nose', 'coverage'],
-      )
+      entry_points = {
+          'console_scripts' : [
+              'pyminify = htmlmin.commands:main',
+          ]
+      },
+     )
