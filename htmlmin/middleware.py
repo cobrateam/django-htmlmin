@@ -15,6 +15,8 @@ class HtmlMinifyMiddleware(object):
                     break
 
         is_response_ok = response.status_code == 200 and 'text/html' in response['Content-Type']
+        if hasattr(response, 'minify_response'):
+            is_response_ok = is_response_ok and response.minify_response
         return is_request_ok and is_response_ok
 
     def process_response(self, request, response):

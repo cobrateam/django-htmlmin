@@ -24,3 +24,7 @@ class TestDecorator(unittest.TestCase):
     '''
         response = self.client.get('/raw')
         assert_equals(expected, response.content)
+
+    def test_should_set_minify_response_attribute_to_false_if_view_decorated_with_not_minified_response(self):
+        response = self.client.get('/not_min')
+        assert_equals(False, response.minify_response)

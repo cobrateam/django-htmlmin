@@ -65,3 +65,17 @@ class TestMiddleware(unittest.TestCase):
         assert_equals(html_minified, response.content)
 
         settings.EXCLUDE_FROM_MINIFYING = old
+
+    def test_middleware_should_not_minify_if_response_has_minify_response_attribute_set_to_false(self):
+        html_not_minified = "<html>   <body>some text here</body>    </html>"
+        response_mock = ResponseMock()
+        response_mock.minify_response = False
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), response_mock)
+        assert_equals(html_not_minified, response.content)
+
+    def test_middleware_should_minify_if_response_has_minify_response_attribute_set_to_true(self):
+        html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
+        response_mock = ResponseMock()
+        response_mock.minify_response = True
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), response_mock)
+        assert_equals(html_minified, response.content)
