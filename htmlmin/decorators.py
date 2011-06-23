@@ -10,3 +10,12 @@ def minified_response(f):
         return response
 
     return minify
+
+def not_minified_response(f):
+    @wraps(f)
+    def not_minify(*args, **kwargs):
+        response = f(*args, **kwargs)
+        response.minify_response = False
+        return response
+
+    return not_minify
