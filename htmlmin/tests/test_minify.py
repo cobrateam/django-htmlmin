@@ -30,6 +30,11 @@ class TestMinify(unittest.TestCase):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_javascript')
         assert_equals(html_minified, html_minify(html))
 
+    def test_should_not_minify_content_from_pre_tag(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_pre')
+        assert_equals(html_minified, html_minify(html))
+
+
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
         html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
