@@ -123,3 +123,11 @@ irc channel
 -----------
 
 #cobrateam channel on irc.freenode.net
+
+Changelog
+=========
+
+0.4.1
+-----
+
+* [bugfix] stopped minifying ``<pre>`` tags (thanks `Cícero Verneck Corrêa <https://github.com/cicerocomp>`_)
