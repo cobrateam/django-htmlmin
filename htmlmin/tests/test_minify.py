@@ -78,3 +78,7 @@ class TestMinify(unittest.TestCase):
         html = '<html>\n    <body>I selected you!</body>\n    </html>'
         html_minified = '<!DOCTYPE html><html><body>I selected you!</body></html>'
         assert_equals(html_minified, html_minify(html))
+
+    def test_should_be_able_to_minify_html5_tags(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('html5')
+        assert_equals(html_minified, html_minify(html))

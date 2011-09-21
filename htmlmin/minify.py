@@ -5,6 +5,8 @@ EXCLUDE_TAGS = ('script', 'pre',)
 
 TAGS_PATTERN = '############ %s %d ############'
 
+BeautifulSoup.RESET_NESTING_TAGS.update({'section': None, 'header': None})
+
 
 def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
