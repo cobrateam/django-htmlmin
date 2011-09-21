@@ -1,9 +1,10 @@
 from BeautifulSoup import BeautifulSoup, Comment
 from util import force_decode
 
-EXCLUDE_TAGS = ('script','pre',)
+EXCLUDE_TAGS = ('script', 'pre',)
 
 TAGS_PATTERN = '############ %s %d ############'
+
 
 def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
@@ -11,7 +12,7 @@ def html_minify(html_code, ignore_comments=True):
     exclude_tags = {}
 
     for tag in EXCLUDE_TAGS:
-        exclude_tags[tag] = [ str(script) for script in soup.findAll(name=tag) if len(script.text) > 0 ]
+        exclude_tags[tag] = [str(script) for script in soup.findAll(name=tag) if len(script.text) > 0]
 
         for index, script in enumerate(exclude_tags[tag]):
             html_code = html_code.replace(script, TAGS_PATTERN % (tag, index))
@@ -19,7 +20,7 @@ def html_minify(html_code, ignore_comments=True):
     soup = BeautifulSoup(html_code)
 
     if ignore_comments:
-        [ comment.extract() for comment in soup.findAll(text=lambda text:isinstance(text, Comment)) ]
+        [comment.extract() for comment in soup.findAll(text=lambda text:isinstance(text, Comment))]
 
     html_code = str(soup)
     lines = html_code.split('\n')
@@ -34,7 +35,7 @@ def html_minify(html_code, ignore_comments=True):
 
     for tag in EXCLUDE_TAGS:
         for index, script in enumerate(exclude_tags[tag]):
-            content = content.replace(TAGS_PATTERN % (tag,index), script)
+            content = content.replace(TAGS_PATTERN % (tag, index), script)
 
     if "DOCTYPE" not in content:
         content = "<!DOCTYPE html>%s" % content
