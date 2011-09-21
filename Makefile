@@ -19,4 +19,4 @@ nosedjango:
 	@python -c 'import nosedjango' 2>/dev/null || pip install nosedjango
 
 test: dependencies clean
-	@specloud --with-xunit --xunit-file=nose.xml --with-coverage --with-django --django-settings=htmlmin.tests.mock_settings --django-sqlite=use_sqlite --cover-erase --cover-package=htmlmin --verbosity=2 --where=htmlmin/tests
+	@specloud -s --with-xunit --xunit-file=nose.xml --with-coverage --with-django --django-settings=htmlmin.tests.mock_settings --django-sqlite=use_sqlite --cover-erase --cover-package=htmlmin --verbosity=2 --where=htmlmin/tests
