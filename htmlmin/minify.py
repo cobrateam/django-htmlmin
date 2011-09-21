@@ -1,16 +1,16 @@
-from BeautifulSoup import BeautifulSoup, Comment
+# -*- coding: utf-8 -*-
+from BeautifulSoup import Comment
+from parser import HtmlMinifyParser
 from util import force_decode
 
 EXCLUDE_TAGS = ('script', 'pre',)
 
 TAGS_PATTERN = '############ %s %d ############'
 
-BeautifulSoup.RESET_NESTING_TAGS.update({'section': None, 'header': None})
-
 
 def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
-    soup = BeautifulSoup(html_code)
+    soup = HtmlMinifyParser(html_code)
     exclude_tags = {}
 
     for tag in EXCLUDE_TAGS:
@@ -19,7 +19,7 @@ def html_minify(html_code, ignore_comments=True):
         for index, script in enumerate(exclude_tags[tag]):
             html_code = html_code.replace(script, TAGS_PATTERN % (tag, index))
 
-    soup = BeautifulSoup(html_code)
+    soup = HtmlMinifyParser(html_code)
 
     if ignore_comments:
         [comment.extract() for comment in soup.findAll(text=lambda text:isinstance(text, Comment))]
