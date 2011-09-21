@@ -127,6 +127,11 @@ irc channel
 Changelog
 =========
 
+0.4.2
+-----
+
+* [bugfix] fixed behavior for nesting html 5 tags (`issue #14 <https://github.com/cobrateam/django-htmlmin/issues/14>`_)
+
 0.4.1
 -----
 
