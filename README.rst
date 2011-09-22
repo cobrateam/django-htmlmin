@@ -127,6 +127,11 @@ irc channel
 Changelog
 =========
 
+0.4.3
+-----
+
+* skipping ``<textarea></textarea>`` content from minifying
+
 0.4.2
 -----
 
