@@ -7,6 +7,7 @@ from os.path import abspath, dirname, join
 
 resources_path = lambda *paths: abspath(join(dirname(__file__), 'resources', *paths))
 
+
 class TestMinify(unittest.TestCase):
 
     def _get_normal_and_minified_content_from_html_files(self, filename):
@@ -34,6 +35,9 @@ class TestMinify(unittest.TestCase):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_pre')
         assert_equals(html_minified, html_minify(html))
 
+    def test_should_not_minify_content_from_textarea(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_textarea')
+        assert_equals(html_minified, html_minify(html))
 
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"

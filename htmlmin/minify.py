@@ -3,7 +3,7 @@ from BeautifulSoup import Comment
 from parser import HtmlMinifyParser
 from util import force_decode
 
-EXCLUDE_TAGS = ('script', 'pre',)
+EXCLUDE_TAGS = ('pre', 'script', 'textarea',)
 
 TAGS_PATTERN = '############ %s %d ############'
 
