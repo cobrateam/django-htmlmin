@@ -11,3 +11,6 @@ class ResponseMock(dict):
 
     status_code = 200
     content = "<html>   <body>some text here</body>    </html>"
+
+class ResponseWithCommentMock(ResponseMock):
+    content = "<html>   <!-- some comment --><body>some text here</body>    </html>"
