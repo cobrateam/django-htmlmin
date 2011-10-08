@@ -35,6 +35,13 @@ If you don't want to minify all views in your app and it's under a ``/my_app`` U
 
 As you can see, you use a regex pattern for URL exclusion. If you want to exclude all URLs of your app, except a specific view, you can use the decorator ``minified_response`` (check the next section above).
 
+Keeping comments
+----------------
+
+The default behaviour of the middleware is remove all comments from HTML. If you want to keep your comments, set the setting ``KEEP_COMMENTS_ON_MINIFYING`` to ``True``: ::
+
+    KEEP_COMMENTS_ON_MINIFYING = True
+
 Using the decorator
 ===================
 
