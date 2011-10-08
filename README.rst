@@ -134,6 +134,14 @@ irc channel
 Changelog
 =========
 
+0.5
+---
+
+* added support for more HTML 5 tags
+* fixed encoding bug on admin interface
+* added the ``KEEP_COMMENTS_ON_MINIFYING`` setting to keep comments when minifying using
+  the middleware
+
 0.4.3
 -----
 
