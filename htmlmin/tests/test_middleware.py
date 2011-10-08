@@ -4,7 +4,7 @@ import unittest
 from django.conf import settings
 from htmlmin.middleware import HtmlMinifyMiddleware
 from htmlmin.tests import TESTS_DIR
-from mocks import RequestMock, ResponseMock
+from mocks import RequestMock, ResponseMock, ResponseWithCommentMock
 from nose.tools import assert_equals
 
 class TestMiddleware(unittest.TestCase):
@@ -79,3 +79,36 @@ class TestMiddleware(unittest.TestCase):
         response_mock.minify_response = True
         response = HtmlMinifyMiddleware().process_response(RequestMock(), response_mock)
         assert_equals(html_minified, response.content)
+
+    def test_middleware_should_keep_comments_when_they_are_enabled(self):
+        old = settings.KEEP_COMMENTS_ON_MINIFYING
+        settings.KEEP_COMMENTS_ON_MINIFYING = True
+
+        html_minified = "<!DOCTYPE html><html> <!-- some comment --><body>some text here</body> </html>"
+        response_mock = ResponseWithCommentMock()
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), response_mock)
+        assert_equals(html_minified, response.content)
+
+        settings.KEEP_COMMENTS_ON_MINIFYING = old
+
+    def test_middleware_should_remove_comments_they_are_disabled(self):
+        old = settings.KEEP_COMMENTS_ON_MINIFYING
+        settings.KEEP_COMMENTS_ON_MINIFYING = False
+
+        html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
+        response_mock = ResponseWithCommentMock()
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), response_mock)
+        assert_equals(html_minified, response.content)
+
+        settings.KEEP_COMMENTS_ON_MINIFYING = old
+
+    def test_middleware_should_remove_comments_when_the_setting_is_not_specified(self):
+        old = settings.KEEP_COMMENTS_ON_MINIFYING
+        del settings.KEEP_COMMENTS_ON_MINIFYING
+
+        html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
+        response_mock = ResponseWithCommentMock()
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), response_mock)
+        assert_equals(html_minified, response.content)
+
+        settings.KEEP_COMMENTS_ON_MINIFYING = old
