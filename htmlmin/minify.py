@@ -17,7 +17,7 @@ def html_minify(html_code, ignore_comments=True):
         exclude_tags[tag] = [str(script) for script in soup.findAll(name=tag) if len(script.text) > 0]
 
         for index, script in enumerate(exclude_tags[tag]):
-            html_code = html_code.replace(script, TAGS_PATTERN % (tag, index))
+            html_code = html_code.replace(script.decode('utf-8'), TAGS_PATTERN % (tag, index))
 
     soup = HtmlMinifyParser(html_code)
 
