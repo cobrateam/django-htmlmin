@@ -22,6 +22,9 @@ class TestParser(unittest.TestCase):
     def test_should_be_able_to_nest_menu_tag(self):
         assert 'menu' in self.parser.NESTABLE_BLOCK_TAGS, '<menu> should be nestable'
 
+    def test_should_be_able_to_nest_footer_tag(self):
+        assert 'footer' in self.parser.NESTABLE_BLOCK_TAGS, '<footer> should be nestable'
+
     def test_should_not_reset_nesting_on_section_tag(self):
         assert self.parser.RESET_NESTING_TAGS['section'] is None, '<section> should not reset nesting'
 
@@ -31,5 +34,5 @@ class TestParser(unittest.TestCase):
     def test_should_not_reset_nesting_on_article_tag(self):
         assert self.parser.RESET_NESTING_TAGS['article'] is None, '<article> should not reset nesting'
 
-    def test_should_not_reset_nesting_on_menu_tag(self):
-        assert self.parser.RESET_NESTING_TAGS['menu'] is None, '<menu> should not reset nesting'
+    def test_should_not_reset_nesting_on_footer_tag(self):
+        assert self.parser.RESET_NESTING_TAGS['footer'] is None, '<footer> should not reset nesting'
