@@ -6,13 +6,8 @@ class HtmlMinifyParser(BeautifulSoup):
 
     def __init__(self, *args, **kwargs):
         super(HtmlMinifyParser, self).__init__(*args, **kwargs)
-        self.NESTABLE_BLOCK_TAGS += ('section', 'header', 'article', 'menu', 'footer', 'nav', 'aside')
-        self.RESET_NESTING_TAGS.update({
-            'header': None,
-            'section': None,
-            'article': None,
-            'menu': None,
-            'footer': None,
-            'nav': None,
-            'aside': None,
-        })
+        html5_tags = ('section', 'header', 'article', 'menu', 'footer', 'nav', 'aside')
+        self.NESTABLE_BLOCK_TAGS += html5_tags
+
+        for tag in html5_tags:
+            self.RESET_NESTING_TAGS[tag] = None
