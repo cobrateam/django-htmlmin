@@ -28,6 +28,9 @@ class TestParser(unittest.TestCase):
     def test_should_be_able_to_nest_nav_tag(self):
         assert 'nav' in self.parser.NESTABLE_BLOCK_TAGS, '<nav> should be nestable'
 
+    def test_should_be_able_to_nest_aside_tag(self):
+        assert 'aside' in self.parser.NESTABLE_BLOCK_TAGS, '<aside> should be nestable'
+
     def test_should_not_reset_nesting_on_section_tag(self):
         assert self.parser.RESET_NESTING_TAGS['section'] is None, '<section> should not reset nesting'
 
@@ -40,5 +43,5 @@ class TestParser(unittest.TestCase):
     def test_should_not_reset_nesting_on_footer_tag(self):
         assert self.parser.RESET_NESTING_TAGS['footer'] is None, '<footer> should not reset nesting'
 
-    def test_should_not_reset_nesting_on_nav_tag(self):
-        assert self.parser.RESET_NESTING_TAGS['nav'] is None, '<nav> should not reset nesting'
+    def test_should_not_reset_nesting_on_aside_tag(self):
+        assert self.parser.RESET_NESTING_TAGS['aside'] is None, '<aside> should not reset nesting'
