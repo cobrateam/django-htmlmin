@@ -86,3 +86,10 @@ class TestMinify(unittest.TestCase):
     def test_should_be_able_to_minify_html5_tags(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('html5')
         assert_equals(html_minified, html_minify(html))
+
+    def test_should_transform_a_lot_of_extra_white_spaces_in_a_unique_one(self):
+        html = '<html><body><a href="foo-bar">google!</a>     <a href="http://cobrateam.info">cobrateam</a></body></html>'
+        expected_html = '<!DOCTYPE html><html><body><a href="foo-bar">google!</a> <a href="http://cobrateam.info">cobrateam</a></body></html>'
+        obtained_html = html_minify(html)
+
+        self.assertEqual(expected_html, obtained_html)
