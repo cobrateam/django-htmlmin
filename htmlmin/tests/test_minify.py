@@ -93,3 +93,10 @@ class TestMinify(unittest.TestCase):
         obtained_html = html_minify(html)
 
         self.assertEqual(expected_html, obtained_html)
+
+    def test_should_transform_a_line_break_inside_a_paragraph_in_a_phrase(self):
+        html = '<html><body><p>this is a \n multiline paragraph</p></body></html>'
+        expected_html = '<!DOCTYPE html><html><body><p>this is a multiline paragraph</p></body></html>'
+        obtained_html = html_minify(html)
+
+        self.assertEqual(expected_html, obtained_html)
