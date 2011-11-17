@@ -6,3 +6,8 @@ def force_decode(string, encoding="utf-8"):
             return string.decode(c)
         except (UnicodeDecodeError, UnicodeEncodeError):
             pass
+
+def between_two_tags(current_line, all_lines, index):
+    if current_line and not current_line.startswith('<') and not all_lines[index-1].endswith('>'):
+        return False
+    return True
