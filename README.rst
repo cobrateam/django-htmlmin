@@ -134,6 +134,11 @@ irc channel
 Changelog
 =========
 
+0.5.1
+-----
+
+* [bugfix] line breaks inside tags are now replaced by a single white space.
+
 0.5
 ---
 
