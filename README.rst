@@ -19,12 +19,16 @@ For install django-htmlmin, run on terminal: ::
 Using the midleware
 ===================
 
-All you need to do is add ``htmlmin.middleware.HtmlMinifyMiddleware`` to your ``MIDDLEWARE_CLASSES``: ::
+All you need to do is add ``htmlmin.middleware.HtmlMinifyMiddleware`` to your ``MIDDLEWARE_CLASSES`` and enable the ``HTML_MINIFY`` setting: ::
 
     MIDDLEWARE_CLASSES = (
         # other middleware classes
         'htmlmin.middleware.HtmlMinifyMiddleware',
     )
+
+    HTML_MINIFY = True
+
+The default value for the ``HTML_MINIFY`` setting is ``not DEBUG``. You only need to set it to ``True`` if you want to minify your HTML code when ``DEBUG`` is enabled.
 
 Excluding some URLs
 -------------------
