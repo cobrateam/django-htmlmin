@@ -1,4 +1,4 @@
-dependencies: coverage django BeautifulSoup specloud nosedjango
+dependencies: coverage django BeautifulSoup nosedjango
 
 clean:
 	@find . -name "*.pyc" -delete
