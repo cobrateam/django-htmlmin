@@ -27,7 +27,6 @@ def html_minify(html_code, ignore_comments=True):
     html_code = str(soup)
     lines = html_code.split('\n')
     minified_lines = []
-    last_line = '<>'
 
     for index, line in enumerate(lines):
         minified_line = line.strip()
