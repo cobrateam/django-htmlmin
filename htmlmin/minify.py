@@ -43,7 +43,4 @@ def html_minify(html_code, ignore_comments=True):
         for index, script in enumerate(exclude_tags[tag]):
             content = content.replace(TAGS_PATTERN % (tag, index), script)
 
-    if "DOCTYPE" not in content:
-        content = "<!DOCTYPE html>%s" % content
-
     return content
