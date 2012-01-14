@@ -40,6 +40,11 @@ class TestMinify(unittest.TestCase):
         result = html_minify(html)
         assert_equals(html_minified, result)
 
+    def test_should_not_drop_blank_lines_from_the_begin_of_a_textarea(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_textarea_with_blank_lines')
+        result = html_minify(html)
+        assert_equals(html_minified, result)
+
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
         html_minified = "<html> <body>some text here</body> </html>"
