@@ -20,7 +20,8 @@ class HtmlMinifyMiddleware(object):
         return is_request_ok and is_response_ok
 
     def process_response(self, request, response):
-        keep_comments = hasattr(settings, 'KEEP_COMMENTS_ON_MINIFYING') and settings.KEEP_COMMENTS_ON_MINIFYING
-        if self.can_minify_response(request, response):
+        minify = getattr(settings, "HTML_MINIFY", not settings.DEBUG)
+        keep_comments = getattr(settings, 'KEEP_COMMENTS_ON_MINIFYING', False)
+        if minify and self.can_minify_response(request, response):
             response.content = html_minify(response.content, ignore_comments=not keep_comments)
         return response

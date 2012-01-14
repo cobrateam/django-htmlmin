@@ -112,3 +112,41 @@ class TestMiddleware(unittest.TestCase):
         assert_equals(html_minified, response.content)
 
         settings.KEEP_COMMENTS_ON_MINIFYING = old
+
+    def test_middleware_should_not_minify_if_the_HTML_MINIFY_setting_is_false(self):
+        old = settings.HTML_MINIFY
+        settings.HTML_MINIFY = False
+        expected_output = "<html>   <body>some text here</body>    </html>"
+
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), ResponseMock())
+        assert_equals(expected_output, response.content)
+
+        settings.HTML_MINIFY = old
+
+    def test_middleware_should_not_minify_when_the_HTML_MINIFY_setting_is_not_present_but_DEBUG_is_enabled(self):
+        old = settings.HTML_MINIFY
+        old_debug = settings.DEBUG
+        del settings.HTML_MINIFY
+        settings.DEBUG = True
+
+        expected_output = "<html>   <body>some text here</body>    </html>"
+
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), ResponseMock())
+        assert_equals(expected_output, response.content)
+
+        settings.DEBUG = old_debug
+        settings.HTML_MINIFY = old
+
+    def test_middleware_should_minify_when_the_HTML_MINIFY_setting_is_not_present_and_the_DEBUG_is_disabled(self):
+        old = settings.HTML_MINIFY
+        old_debug = settings.DEBUG
+        del settings.HTML_MINIFY
+        settings.DEBUG = False
+
+        html_minified = "<!DOCTYPE html><html> <body>some text here</body> </html>"
+
+        response = HtmlMinifyMiddleware().process_response(RequestMock(), ResponseMock())
+        assert_equals(html_minified, response.content)
+
+        settings.DEBUG = old_debug
+        settings.HTML_MINIFY = old
