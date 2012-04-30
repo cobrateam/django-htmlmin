@@ -1,6 +1,8 @@
 ++++++++++++++
 django-htmlmin
 ++++++++++++++
+.. image:: https://secure.travis-ci.org/cobrateam/django-htmlmin.png
+
 
 html minify for django
 
