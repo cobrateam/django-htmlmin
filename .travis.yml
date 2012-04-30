@@ -3,3 +3,6 @@ python:
   - "2.7"
 install: make dependencies
 script: make test
+branches:
+  only:
+  - master
