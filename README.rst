@@ -167,3 +167,8 @@ Changelog
 -----
 
 * [bugfix] stopped minifying ``<pre>`` tags (thanks `Cícero Verneck Corrêa <https://github.com/cicerocomp>`_)
+
+LICENSE
+=======
+
+Unless otherwise noted, the django-htmlmin source files are distributed under the BSD-style license found in the LICENSE file.

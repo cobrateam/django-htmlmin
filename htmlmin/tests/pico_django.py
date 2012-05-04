@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+# Copyright 2012 django-htmlmin authors. All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
 '''
 File: pico_django.py
 Description: Code based on snippet available here: https://github.com/readevalprint/mini-django/blob/master/pico_django.py
