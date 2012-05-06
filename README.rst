@@ -64,9 +64,9 @@ Decorator to avoid response to be minified
 
 You can use ``not_minified_response`` decorator on views if you want avoid response to be minified instead to use ``EXCLUDE_FROM_MINIFYING`` setting: ::
 
-    from htmlmin.decorator import no_minified_response
+    from htmlmin.decorators import not_minified_response
 
-    @no_minified_response
+    @not_minified_response
     def home(request):
         return render_to_response('home.html')
 
