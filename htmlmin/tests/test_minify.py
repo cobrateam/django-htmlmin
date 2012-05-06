@@ -75,12 +75,24 @@ class TestMinify(unittest.TestCase):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_comments_to_exclude')
         assert_equals(html_minified, html_minify(html))
 
+    def test_should_exclude_conditional_comments_by_default(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_conditional_comments_to_exclude')
+        assert_equals(html_minified, html_minify(html))
+
     def test_should_be_able_to_not_exclude_comments(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_comments')
         assert_equals(html_minified, html_minify(html, ignore_comments=False))
 
+    def test_should_be_able_to_not_exclude_conditional_comments(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_conditional_comments')
+        assert_equals(html_minified, html_minify(html, ignore_comments=False, ignore_conditional_comments=False))
+
     def test_should_be_able_to_exclude_multiline_comments(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('with_multiple_line_comments')
+        assert_equals(html_minified, html_minify(html))
+
+    def test_should_be_able_to_exclude_multiline_conditional_comments(self):
+        html, html_minified = self._get_normal_and_minified_content_from_html_files('with_multiple_line_conditional_comments')
         assert_equals(html_minified, html_minify(html))
 
     def test_should_be_able_to_exclude_multiple_comments_on_a_page(self):
