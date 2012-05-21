@@ -6,6 +6,7 @@ dependencies: coverage django BeautifulSoup nosedjango
 
 clean:
 	@find . -name "*.pyc" -delete
+	rm -rf noarch/ BUILDROOT/
 
 coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
@@ -21,3 +22,17 @@ nosedjango:
 
 test: dependencies clean
 	@nosetests -s --with-xunit --xunit-file=nose.xml --with-coverage --with-django --django-settings=htmlmin.tests.mock_settings --django-sqlite=use_sqlite --cover-erase --cover-package=htmlmin --where=htmlmin/tests
+
+rpm:
+	rpmbuild --define "_topdir %(pwd)" \
+	--define "_builddir /tmp" \
+	--define "_rpmdir %{_topdir}" \
+	--define "_srcrpmdir %{_topdir}" \
+	--define "_specdir %{_topdir}" \
+	--define "_sourcedir %{_topdir}" \
+	-ba django-htmlmin.spec
+
+	mv noarch/*.rpm .
+
+rpm-test:
+	rpmlint -i *.rpm *.spec
