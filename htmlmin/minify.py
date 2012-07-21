@@ -5,14 +5,15 @@
 
 from BeautifulSoup import Comment
 from parser import HtmlMinifyParser
-from util import force_decode, between_two_tags
+from util import force_decode, between_two_tags, fix_conditional_comments, \
+    ConditionalComment
 
 EXCLUDE_TAGS = ('pre', 'script', 'textarea',)
 
 TAGS_PATTERN = '############ %s %d ############'
 
 
-def html_minify(html_code, ignore_comments=True):
+def html_minify(html_code, ignore_comments=True, ignore_conditional_comments=True):
     html_code = force_decode(html_code)
     soup = HtmlMinifyParser(html_code)
     exclude_tags = {}
@@ -27,13 +28,15 @@ def html_minify(html_code, ignore_comments=True):
 
     if ignore_comments:
         [comment.extract() for comment in soup.findAll(text=lambda text:isinstance(text, Comment))]
+    elif ignore_conditional_comments:
+        [comment.extract() for comment in soup.findAll(text=lambda text:isinstance(text, ConditionalComment))]
 
     html_code = str(soup)
     lines = html_code.split('\n')
     minified_lines = []
 
     for index, line in enumerate(lines):
-        minified_line = line.strip()
+        minified_line = fix_conditional_comments(line.strip())
 
         # not in between two tags
         if not between_two_tags(minified_line, minified_lines, index):

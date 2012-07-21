@@ -12,10 +12,15 @@ def main():
     parser = argparse.ArgumentParser(description=u'Minify content of HTML files')
     parser.add_argument('filename', metavar='filename', type=str, nargs=1)
     parser.add_argument('--keep-comments', action='store_true')
+    parser.add_argument('--keep-conditional-comments', action='store_true')
     args = parser.parse_args()
 
     content = ""
     with open(os.path.join(my_dir, args.filename[0])) as html_file:
         content = html_file.read()
 
-    print html_minify(content, ignore_comments=not args.keep_comments)
+    print html_minify(
+            content,
+            ignore_comments=not args.keep_comments,
+            ignore_conditional_comments=not args.keep_conditional_comments
+        )
