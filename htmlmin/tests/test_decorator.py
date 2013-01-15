@@ -1,4 +1,4 @@
-# Copyright 2012 django-htmlmin authors. All rights reserved.
+# Copyright 2013 django-htmlmin authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -14,7 +14,7 @@ class TestDecorator(unittest.TestCase):
 
     def test_should_minify_the_content_of_a_view_decorated(self):
         response = self.client.get('/min')
-        minified = '<html><body><p>Hello world! :D</p><div>Copyright 3000</div></body></html>'
+        minified = '<html><head></head><body><p>Hello world! :D</p><div>Copyright 3000</div></body></html>'
         assert_equals(minified, response.content)
 
     def should_not_touch_the_content_of_an_undecorated_view(self):

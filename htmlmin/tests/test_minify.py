@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright 2012 django-htmlmin authors. All rights reserved.
+
+# Copyright 2013 django-htmlmin authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -51,13 +52,13 @@ class TestMinify(unittest.TestCase):
 
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
-        html_minified = "<html> <body>some text here</body> </html>"
+        html_minified = "<html><head></head><body>some text here </body></html>"
         assert_equals(html_minified, html_minify(html))
 
-    def test_minify_function_should_return_a_str_object(self):
+    def test_minify_function_should_return_a_unicode_object(self):
         html = "<html>   <body>some text here</body>    </html>"
         html_minified = html_minify(html)
-        assert_equals(str, type(html_minified))
+        assert_equals(unicode, type(html_minified))
 
     def test_minify_should_respect_encoding(self):
         html, html_minified = self._get_normal_and_minified_content_from_html_files('blogpost')
@@ -89,12 +90,12 @@ class TestMinify(unittest.TestCase):
 
     def test_should_keep_html_attributes_intact(self):
         html = '<html><body>\n<select name="gender" multiple="multiple">\n    <option value="M" selected="selected">Male</option>\n    <option value="F">Female</option>\n</select></body></html>'
-        html_minified = '<html><body><select name="gender" multiple="multiple"><option value="M" selected="selected">Male</option><option value="F">Female</option></select></body></html>'
+        html_minified = '<html><head></head><body><select multiple="multiple" name="gender"><option selected="selected" value="M">Male</option><option value="F">Female</option></select></body></html>'
         assert_equals(html_minified, html_minify(html))
 
     def test_should_touch_attributes_only_on_tags(self):
         html = '<html>\n    <body>I selected you!</body>\n    </html>'
-        html_minified = '<html><body>I selected you!</body></html>'
+        html_minified = '<html><head></head><body>I selected you!</body></html>'
         assert_equals(html_minified, html_minify(html))
 
     def test_should_be_able_to_minify_html5_tags(self):
@@ -103,14 +104,14 @@ class TestMinify(unittest.TestCase):
 
     def test_should_transform_a_lot_of_extra_white_spaces_in_a_unique_one(self):
         html = '<html><body><a href="foo-bar">google!</a>     <a href="http://cobrateam.info">cobrateam</a></body></html>'
-        expected_html = '<html><body><a href="foo-bar">google!</a> <a href="http://cobrateam.info">cobrateam</a></body></html>'
+        expected_html = '<html><head></head><body><a href="foo-bar">google!</a> <a href="http://cobrateam.info">cobrateam</a></body></html>'
         obtained_html = html_minify(html)
 
         self.assertEqual(expected_html, obtained_html)
 
     def test_should_transform_a_line_break_inside_a_paragraph_in_a_white_space(self):
         html = '<html><body><p>this is a \n multiline paragraph</p></body></html>'
-        expected_html = '<html><body><p>this is a multiline paragraph</p></body></html>'
+        expected_html = '<html><head></head><body><p>this is a multiline paragraph</p></body></html>'
         obtained_html = html_minify(html)
 
         self.assertEqual(expected_html, obtained_html)
