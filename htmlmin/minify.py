@@ -12,7 +12,7 @@ from .util import force_decode, between_two_tags
 
 EXCLUDE_TAGS = ('pre', 'script', 'textarea',)
 
-TAGS_PATTERN = '############ %s %d ############'
+TAGS_PATTERN = '<%s>%d</%s>'
 
 
 def html_minify(html_code, ignore_comments=True):
@@ -25,7 +25,7 @@ def html_minify(html_code, ignore_comments=True):
         exclude_tags[tag] = [unicode(e) for e in soup.findAll(name=tag) if len(e.text) > 0]
 
         for index, elem in enumerate(exclude_tags[tag]):
-            html_code = html_code.replace(elem.decode('utf-8'), TAGS_PATTERN % (tag, index))
+            html_code = html_code.replace(elem.decode('utf-8'), TAGS_PATTERN % (tag, index, tag))
 
     soup = bs4.BeautifulSoup(html_code, "html5lib")
 
@@ -50,7 +50,7 @@ def html_minify(html_code, ignore_comments=True):
     content = spaces_pattern.sub(" ", content)
 
     for tag in EXCLUDE_TAGS:
-        for index, script in enumerate(exclude_tags[tag]):
-            content = content.replace(TAGS_PATTERN % (tag, index), script)
+        for index, e in enumerate(exclude_tags[tag]):
+            content = content.replace(TAGS_PATTERN % (tag, index, tag), e)
 
     return content
