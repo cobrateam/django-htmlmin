@@ -46,7 +46,7 @@ def html_minify(html_code, ignore_comments=True):
             minified_line = " %s" % minified_line
         minified_lines.append(unicode(minified_line))
         if minified_line.endswith("</a>") and \
-           not lines[index+1].startswith("</body>"):
+                not lines[index + 1].startswith("</body>"):
             minified_lines.append(u" ")
 
     spaces_pattern = re.compile(r"\s+")
