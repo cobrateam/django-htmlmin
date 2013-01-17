@@ -3,6 +3,7 @@ django-htmlmin
 ++++++++++++++
 
 .. image:: https://secure.travis-ci.org/cobrateam/django-htmlmin.png
+   :target: http://travis-ci.org/cobrateam/django-htmlmin
 
 django-html in an HTML minifier for Python with full support for HTML 5. It
 supports Django, Flask and any other Python web framework. It also provides a
