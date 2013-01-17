@@ -10,9 +10,9 @@ import bs4
 
 from .util import force_decode, between_two_tags
 
-EXCLUDE_TAGS = ('pre', 'script', 'textarea',)
+EXCLUDE_TAGS = ("pre", "script", "textarea",)
 
-TAGS_PATTERN = '<%s>%d</%s>'
+TAGS_PATTERN = "<%s>%d</%s>"
 
 
 def html_minify(html_code, ignore_comments=True):
@@ -26,7 +26,7 @@ def html_minify(html_code, ignore_comments=True):
                              if len(e.text) > 0]
 
         for index, elem in enumerate(exclude_tags[tag]):
-            html_code = html_code.replace(elem.decode('utf-8'),
+            html_code = html_code.replace(elem.decode("utf-8"),
                                           TAGS_PATTERN % (tag, index, tag))
 
     soup = bs4.BeautifulSoup(html_code, "html5lib")
@@ -36,14 +36,18 @@ def html_minify(html_code, ignore_comments=True):
         [comment.extract() for comment in soup.findAll(text=f)]
 
     html_code = unicode(soup)
-    lines = html_code.split('\n')
+    html_code = html_code.replace(" \n", " ")
+    lines = html_code.split("\n")
     minified_lines = []
 
     for index, line in enumerate(lines):
         minified_line = line.strip()
         if not between_two_tags(minified_line, minified_lines, index):
-            minified_line = ' %s' % minified_line
+            minified_line = " %s" % minified_line
         minified_lines.append(unicode(minified_line))
+        if minified_line.endswith("</a>") and \
+           not lines[index+1].startswith("</body>"):
+            minified_lines.append(u" ")
 
     spaces_pattern = re.compile(r"\s+")
     content = "".join(minified_lines)

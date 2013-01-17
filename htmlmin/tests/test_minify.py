@@ -107,3 +107,19 @@ class TestMinify(unittest.TestCase):
     def test_should_convert_line_break_to_whitespace(self):
         html, minified = self._normal_and_minified('line_break')
         self.assertEqual(minified, html_minify(html))
+
+    def test_should_keep_new_line_as_space_when_minifying(self):
+        html = '<html><body>Click <a href="#">here</a>\nto see ' +\
+               'more</body></html>'
+        minified = '<html><head></head><body>Click <a href="#">here</a> to ' +\
+                   'see more</body></html>'
+        got_html = html_minify(html)
+        self.assertEqual(minified, got_html)
+
+    def test_should_not_produce_two_spaces_in_new_line(self):
+        html = '<html><body>Click <a href="#">here</a> \nto see more' +\
+               '</body></html>'
+        minified = '<html><head></head><body>Click <a href="#">here' + \
+                   '</a> to see more</body></html>'
+        got_html = html_minify(html)
+        self.assertEqual(minified, got_html)
