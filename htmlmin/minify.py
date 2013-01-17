@@ -14,6 +14,12 @@ EXCLUDE_TAGS = ("pre", "script", "textarea",)
 
 TAGS_PATTERN = "<%s>%d</%s>"
 
+cond_regex = re.compile(r"<!--\[if .*\]>.*<!\[endif\]-->")
+
+
+def is_conditional_comment(text):
+    return cond_regex.match(text)
+
 
 def html_minify(html_code, ignore_comments=True):
     html_code = force_decode(html_code)
@@ -32,7 +38,8 @@ def html_minify(html_code, ignore_comments=True):
     soup = bs4.BeautifulSoup(html_code, "html5lib")
 
     if ignore_comments:
-        f = lambda text: isinstance(text, bs4.Comment)
+        f = lambda text: isinstance(text, bs4.Comment) and not \
+            cond_regex.match(text.output_ready())
         [comment.extract() for comment in soup.findAll(text=f)]
 
     html_code = unicode(soup)
