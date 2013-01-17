@@ -1,4 +1,4 @@
-# Copyright 2012 django-htmlmin authors. All rights reserved.
+# Copyright 2013 django-htmlmin authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -8,8 +8,11 @@ from htmlmin.minify import html_minify
 
 my_dir = os.getcwd()
 
+
 def main():
-    parser = argparse.ArgumentParser(description=u'Minify content of HTML files')
+    parser = argparse.ArgumentParser(
+        description=u'Minify content of HTML files',
+    )
     parser.add_argument('filename', metavar='filename', type=str, nargs=1)
     parser.add_argument('--keep-comments', action='store_true')
     args = parser.parse_args()

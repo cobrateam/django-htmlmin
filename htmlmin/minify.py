@@ -22,15 +22,18 @@ def html_minify(html_code, ignore_comments=True):
     exclude_tags = {}
 
     for tag in EXCLUDE_TAGS:
-        exclude_tags[tag] = [unicode(e) for e in soup.findAll(name=tag) if len(e.text) > 0]
+        exclude_tags[tag] = [unicode(e) for e in soup.findAll(name=tag)
+                             if len(e.text) > 0]
 
         for index, elem in enumerate(exclude_tags[tag]):
-            html_code = html_code.replace(elem.decode('utf-8'), TAGS_PATTERN % (tag, index, tag))
+            html_code = html_code.replace(elem.decode('utf-8'),
+                                          TAGS_PATTERN % (tag, index, tag))
 
     soup = bs4.BeautifulSoup(html_code, "html5lib")
 
     if ignore_comments:
-        [comment.extract() for comment in soup.findAll(text=lambda text: isinstance(text, bs4.Comment))]
+        f = lambda text: isinstance(text, bs4.Comment)
+        [comment.extract() for comment in soup.findAll(text=f)]
 
     html_code = unicode(soup)
     lines = html_code.split('\n')
