@@ -1,10 +1,12 @@
 ++++++++++++++
 django-htmlmin
 ++++++++++++++
+
 .. image:: https://secure.travis-ci.org/cobrateam/django-htmlmin.png
 
-
-html minify for django
+django-html in an HTML minifier for Python with full support for HTML 5. It
+supports Django, Flask and any other Python web framework. It also provides a
+command line tool that can be used for static websites or deployment scripts.
 
 Why minify HTML code?
 =====================
