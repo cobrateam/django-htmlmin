@@ -41,11 +41,8 @@ def html_minify(html_code, ignore_comments=True):
 
     for index, line in enumerate(lines):
         minified_line = line.strip()
-
-        # not in between two tags
         if not between_two_tags(minified_line, minified_lines, index):
             minified_line = ' %s' % minified_line
-
         minified_lines.append(unicode(minified_line))
 
     spaces_pattern = re.compile(r"\s+")
