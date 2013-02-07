@@ -32,7 +32,7 @@ def html_minify(html_code, ignore_comments=True):
                              if len(e.text) > 0]
 
         for index, elem in enumerate(exclude_tags[tag]):
-            html_code = html_code.replace(elem.decode("utf-8"),
+            html_code = html_code.replace(elem,
                                           TAGS_PATTERN % (tag, index, tag))
 
     soup = bs4.BeautifulSoup(html_code, "html5lib")
