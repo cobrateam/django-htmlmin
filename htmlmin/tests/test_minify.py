@@ -127,3 +127,7 @@ class TestMinify(unittest.TestCase):
                    '</a> to see more</body></html>'
         got_html = html_minify(html)
         self.assertEqual(minified, got_html)
+
+    def test_non_ascii(self):
+        html, minified = self._normal_and_minified('non_ascii')
+        self.assertEqual(minified, html_minify(html))
