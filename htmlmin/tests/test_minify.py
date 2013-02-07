@@ -131,3 +131,10 @@ class TestMinify(unittest.TestCase):
     def test_non_ascii(self):
         html, minified = self._normal_and_minified('non_ascii')
         self.assertEqual(minified, html_minify(html))
+
+    def test_non_ascii_in_excluded_element(self):
+        html, minified = self._normal_and_minified(
+            'non_ascii_in_excluded_element'
+        )
+        self.assertEqual(minified, html_minify(html))
+
