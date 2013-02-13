@@ -11,7 +11,7 @@ coverage:
 	@python -c 'import coverage' 2>/dev/null || pip install coverage
 
 django:
-	@python -c 'import django' 2>/dev/null || pip install django
+	@python -c 'import django' 2>/dev/null || pip install git+git://github.com/django/django.git@stable/1.5.x
 
 bs4: html5lib
 	@python -c 'import bs4' 2>/dev/null || pip install beautifulsoup4
