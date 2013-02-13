@@ -26,11 +26,11 @@ def is_conditional_comment(text):
 def html_minify(html_code, ignore_comments=True):
     html_code = force_text(html_code)
     soup = bs4.BeautifulSoup(html_code, "html5lib")
-    html_code = unicode(soup)
+    html_code = soup
     exclude_tags = {}
 
     for tag in EXCLUDE_TAGS:
-        exclude_tags[tag] = [unicode(e) for e in soup.findAll(name=tag)
+        exclude_tags[tag] = [e for e in soup.findAll(name=tag)
                              if len(e.text) > 0]
 
         for index, elem in enumerate(exclude_tags[tag]):
@@ -44,7 +44,7 @@ def html_minify(html_code, ignore_comments=True):
             cond_regex.match(text.output_ready())
         [comment.extract() for comment in soup.findAll(text=f)]
 
-    html_code = unicode(soup)
+    html_code = soup
     html_code = html_code.replace(" \n", " ")
     lines = html_code.split("\n")
     minified_lines = []
@@ -53,7 +53,7 @@ def html_minify(html_code, ignore_comments=True):
         minified_line = line.strip()
         if not between_two_tags(minified_line, minified_lines, index):
             minified_line = " %s" % minified_line
-        minified_lines.append(unicode(minified_line))
+        minified_lines.append(minified_line)
         if minified_line.endswith("</a>") and \
                 not lines[index + 1].startswith("</body>"):
             minified_lines.append(u" ")
