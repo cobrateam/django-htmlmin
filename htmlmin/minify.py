@@ -8,7 +8,9 @@ import re
 
 import bs4
 
-from .util import force_decode, between_two_tags
+from .util import between_two_tags
+
+from django.utils.encoding import force_text
 
 EXCLUDE_TAGS = ("pre", "script", "textarea",)
 
@@ -22,7 +24,7 @@ def is_conditional_comment(text):
 
 
 def html_minify(html_code, ignore_comments=True):
-    html_code = force_decode(html_code)
+    html_code = force_text(html_code)
     soup = bs4.BeautifulSoup(html_code, "html5lib")
     html_code = unicode(soup)
     exclude_tags = {}
