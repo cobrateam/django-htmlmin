@@ -8,7 +8,7 @@ import unittest
 from django.conf import settings
 from htmlmin.middleware import HtmlMinifyMiddleware
 from htmlmin.tests import TESTS_DIR
-from mocks import RequestMock, ResponseMock, ResponseWithCommentMock
+from .mocks import RequestMock, ResponseMock, ResponseWithCommentMock
 
 
 class TestMiddleware(unittest.TestCase):
