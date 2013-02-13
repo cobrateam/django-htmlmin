@@ -5,7 +5,10 @@
 import os
 import sys
 import unittest
+
 from django.conf import settings
+from django.test.utils import override_settings
+
 from htmlmin.middleware import HtmlMinifyMiddleware
 from htmlmin.tests import TESTS_DIR
 from .mocks import RequestMock, ResponseMock, ResponseWithCommentMock
@@ -140,9 +143,8 @@ class TestMiddleware(unittest.TestCase):
 
         settings.KEEP_COMMENTS_ON_MINIFYING = old
 
+    @override_settings(HTML_MINIFY=False)
     def test_should_not_minify_if_the_HTML_MINIFY_setting_is_false(self):
-        old = settings.HTML_MINIFY
-        settings.HTML_MINIFY = False
         expected_output = "<html>   <body>some text here</body>    </html>"
 
         response = HtmlMinifyMiddleware().process_response(
@@ -150,23 +152,14 @@ class TestMiddleware(unittest.TestCase):
         )
         self.assertEqual(expected_output, response.content)
 
-        settings.HTML_MINIFY = old
-
+    @override_settings(DEBUG=True)
     def test_should_not_minify_when_DEBUG_is_enabled(self):
-        old = settings.HTML_MINIFY
-        old_debug = settings.DEBUG
-        del settings.HTML_MINIFY
-        settings.DEBUG = True
-
         expected_output = "<html>   <body>some text here</body>    </html>"
 
         response = HtmlMinifyMiddleware().process_response(
             RequestMock(), ResponseMock(),
         )
         self.assertEqual(expected_output, response.content)
-
-        settings.DEBUG = old_debug
-        settings.HTML_MINIFY = old
 
     def test_should_minify_when_DEBUG_is_false_and_MINIFY_is_unset(self):
         old = settings.HTML_MINIFY
