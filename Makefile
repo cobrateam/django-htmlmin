@@ -9,4 +9,4 @@ clean:
 	@find . -name "*.pyc" -delete
 
 test: dependencies clean
-	@nosetests -s --with-xunit --xunit-file=nose.xml --with-coverage --with-django --django-settings=htmlmin.tests.mock_settings --django-sqlite=use_sqlite --cover-erase --cover-package=htmlmin --where=htmlmin/tests
+	@PYTHONPATH=. django-admin.py test --settings=htmlmin.tests.mock_settings
