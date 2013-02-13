@@ -161,6 +161,11 @@ irc channel
 Changelog
 =========
 
+0.6.1
+-----
+
+* [bugfix] Non ascii characters in exclude field fix
+
 0.6
 ---
 
