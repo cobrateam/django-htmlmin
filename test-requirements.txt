@@ -1,4 +1,4 @@
-Django==1.5c1
+git+git://github.com/django/django.git@stable/1.5.x
 beautifulsoup4==4.1.3
 coverage==3.6
 django-discover-runner==0.3
