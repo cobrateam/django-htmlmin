@@ -37,12 +37,25 @@ class TestMinify(unittest.TestCase):
         html, minified = self._normal_and_minified('with_javascript')
         self.assertEqual(minified, html_minify(html))
 
+    def test_should_not_convert_entity_the_content_of_script_tag(self):
+        html, minified = self._normal_and_minified('with_html_content_in_javascript')
+        self.assertEqual(minified, html_minify(html))
+
     def test_should_not_minify_content_from_pre_tag(self):
         html, minified = self._normal_and_minified('with_pre')
         self.assertEqual(minified, html_minify(html))
 
+    def test_should_not_convert_entity_the_content_of_pre_tag(self):
+        html, minified = self._normal_and_minified('with_html_content_in_pre')
+        self.assertEqual(minified, html_minify(html))
+
     def test_should_not_minify_content_from_textarea(self):
         html, minified = self._normal_and_minified('with_textarea')
+        result = html_minify(html)
+        self.assertEqual(minified, result)
+
+    def test_should_not_convert_entity_the_content_of_textarea_tag(self):
+        html, minified = self._normal_and_minified('with_html_content_in_textarea')
         result = html_minify(html)
         self.assertEqual(minified, result)
 
