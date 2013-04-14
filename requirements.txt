@@ -1,0 +1,4 @@
+argparse
+django
+beautifulsoup4
+html5lib
