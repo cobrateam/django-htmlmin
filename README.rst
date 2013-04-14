@@ -161,6 +161,11 @@ irc channel
 Changelog
 =========
 
+0.6.2
+-----
+
+* [bugfix] #39 Breaks CSS and JS containing < and > signs.
+
 0.6.1
 -----
 
