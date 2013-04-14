@@ -15,3 +15,4 @@ DEBUG = True
 HTML_MINIFY = True
 ROOT_URLCONF = 'htmlmin.tests.pico_django'
 KEEP_COMMENTS_ON_MINIFYING = True
+SECRET_KEY="sosecret"
