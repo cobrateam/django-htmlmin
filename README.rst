@@ -92,21 +92,21 @@ Using the html_minify function
 If you are not working with Django, you can invoke the ``html_minify`` function
 manually: ::
 
-    from htmlmin.minify import html_minify
+    from htmlmin import minify
     html = '<html>    <body>Hello world</body>    </html>'
-    minified_html = html_minify(html)
+    minified_html = minify(html)
 
 Here is an example with a `Flask <http://flask.pocoo.org>`_ view: ::
 
     from flask import Flask
-    from htmlmin.minify import html_minify
+    from htmlmin import minify
 
     app = Flask(__name__)
 
     @app.route('/')
     def home():
         rendered_html = render_template('home.html')
-        return html_minify(rendered_html)
+        return minify(rendered_html)
 
 Keeping comments
 ----------------
