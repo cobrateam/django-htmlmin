@@ -12,8 +12,8 @@ def force_decode(string, encoding="utf-8"):
             pass
 
 
-def between_two_tags(current_line, all_lines, index):
+def between_two_tags(current_line, all_lines):
     st = current_line and not current_line.startswith('<')
-    if st and not all_lines[index - 1].endswith('>'):
+    if st and not all_lines[-1].endswith('>'):
         return False
     return True

@@ -7,8 +7,8 @@
 import re
 
 import bs4
- 
-from HTMLParser import HTMLParser 
+
+from HTMLParser import HTMLParser
 
 from .util import force_decode, between_two_tags
 
@@ -51,7 +51,7 @@ def html_minify(html_code, ignore_comments=True):
 
     for index, line in enumerate(lines):
         minified_line = line.strip()
-        if not between_two_tags(minified_line, minified_lines, index):
+        if not between_two_tags(minified_line, minified_lines):
             minified_line = " %s" % minified_line
         minified_lines.append(unicode(minified_line))
         if minified_line.endswith("</a>") and \
