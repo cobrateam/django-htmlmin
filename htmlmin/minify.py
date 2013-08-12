@@ -5,11 +5,7 @@
 # license that can be found in the LICENSE file.
 
 import re
-
 import bs4
- 
-from HTMLParser import HTMLParser 
-
 from .util import force_decode, between_two_tags
 
 EXCLUDE_TAGS = ("pre", "script", "textarea",)
@@ -64,6 +60,6 @@ def html_minify(html_code, ignore_comments=True):
 
     for tag in EXCLUDE_TAGS:
         for index, e in enumerate(exclude_tags[tag]):
-            content = content.replace(TAGS_PATTERN % (tag, index, tag), HTMLParser().unescape(e))
+            content = content.replace(TAGS_PATTERN % (tag, index, tag), e)
 
     return content
