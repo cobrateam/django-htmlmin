@@ -34,6 +34,12 @@ All you need to do is add ``htmlmin.middleware.HtmlMinifyMiddleware`` to your
         'htmlmin.middleware.HtmlMinifyMiddleware',
     )
 
+Note that if you're using Django's caching middleware, ``HtmlMinifyMiddleware``
+should be *after* ``UpdateCacheMiddleware``, and *before* 
+``FetchFromCacheMiddleware``.
+
+You can optionally specify the ``HTML_MINIFY`` setting::
+
     HTML_MINIFY = True
 
 The default value for the ``HTML_MINIFY`` setting is ``not DEBUG``. You only
