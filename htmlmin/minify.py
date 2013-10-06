@@ -23,9 +23,9 @@ def is_conditional_comment(text):
     return cond_regex.match(text)
 
 
-def html_minify(html_code, ignore_comments=True):
+def html_minify(html_code, ignore_comments=True, parser="html5lib"):
     html_code = force_decode(html_code)
-    soup = bs4.BeautifulSoup(html_code, "html5lib")
+    soup = bs4.BeautifulSoup(html_code, parser)
     html_code = unicode(soup)
     exclude_tags = {}
 
@@ -37,7 +37,7 @@ def html_minify(html_code, ignore_comments=True):
             html_code = html_code.replace(elem,
                                           TAGS_PATTERN % (tag, index, tag))
 
-    soup = bs4.BeautifulSoup(html_code, "html5lib")
+    soup = bs4.BeautifulSoup(html_code, parser)
 
     if ignore_comments:
         f = lambda text: isinstance(text, bs4.Comment) and not \
