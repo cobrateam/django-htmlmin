@@ -19,8 +19,8 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     test_suite='nose.collector',
-    install_requires=['argparse', 'django', 'beautifulsoup4', 'html5lib'],
-    tests_require=['nose', 'coverage'],
+    install_requires=['argparse', 'beautifulsoup4', 'html5lib'],
+    tests_require=['nose', 'coverage', 'django'],
     entry_points={
         'console_scripts': [
             'pyminify = htmlmin.commands:main',
