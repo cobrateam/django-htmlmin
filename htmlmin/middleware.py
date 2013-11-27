@@ -3,12 +3,8 @@
 # license that can be found in the LICENSE file.
 
 import re
-import logging
 from htmlmin.minify import html_minify
 from django.conf import settings
-
-
-logger = logging.getLogger(__name__)
 
 
 class HtmlMinifyMiddleware(object):
