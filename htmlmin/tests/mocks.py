@@ -7,6 +7,13 @@ class RequestMock(object):
 
     def __init__(self, path="/"):
         self.path = path
+        self._hit_htmlmin = True
+
+
+class RequestBareMock(object):
+
+    def __init__(self, path="/"):
+        self.path = path
 
 
 class ResponseMock(dict):
