@@ -33,7 +33,7 @@ class TestMiddleware(unittest.TestCase):
         html_not_minified = "<html>   <body>some text here</body>    </html>"
         self.assertEqual(html_not_minified, response.content)
 
-    def test_should_be_minify_response_when_mime_type_is_html(self):
+    def test_should_minify_response_when_mime_type_is_html(self):
         response_mock = ResponseMock()
         response = HtmlMinifyMiddleware().process_response(
             RequestMock(), response_mock,
