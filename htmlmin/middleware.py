@@ -10,7 +10,11 @@ from django.conf import settings
 class HtmlMinifyMiddleware(object):
 
     def can_minify_response(self, request, response):
-        req_ok = True
+        try:
+            request._hit_htmlmin
+            req_ok = True
+        except AttributeError:
+            return False
 
         if hasattr(settings, 'EXCLUDE_FROM_MINIFYING'):
             for url_pattern in settings.EXCLUDE_FROM_MINIFYING:
@@ -24,6 +28,9 @@ class HtmlMinifyMiddleware(object):
         if hasattr(response, 'minify_response'):
             resp_ok = resp_ok and response.minify_response
         return req_ok and resp_ok
+
+    def process_request(self, request):
+        request._hit_htmlmin = True
 
     def process_response(self, request, response):
         minify = getattr(settings, "HTML_MINIFY", not settings.DEBUG)
