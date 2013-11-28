@@ -54,7 +54,7 @@ class TestMinify(unittest.TestCase):
         result = html_minify(html)
         self.assertEqual(minified, result)
 
-    def test_should_not_convert_to_entities_the_content_of_textarea_tag(self):
+    def test_should_convert_to_entities_the_content_of_textarea_tag(self):
         html, minified = self._normal_and_minified('with_html_content_in_textarea')
         result = html_minify(html)
         self.assertEqual(minified, result)
