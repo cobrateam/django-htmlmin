@@ -31,13 +31,21 @@ enable the ``HTML_MINIFY`` setting: ::
 
     MIDDLEWARE_CLASSES = (
         # other middleware classes
-        'htmlmin.middleware.MarkRequestMiddleware',
         'htmlmin.middleware.HtmlMinifyMiddleware',
+        'htmlmin.middleware.MarkRequestMiddleware',
     )
 
 Note that if you're using Django's caching middleware, ``MarkRequestMiddleware``
-should go after ``UpdateCacheMiddleware``, and ``HtmlMinifyMiddleware`` should
-go after ``FetchFromCacheMiddleware``.
+should go after ``FetchFromCacheMiddleware``, and ``HtmlMinifyMiddleware``
+should go after ``UpdateCacheMiddleware``: ::
+
+    MIDDLEWARE_CLASSES = (
+      'django.middleware.cache.UpdateCacheMiddleware',
+      'htmlmin.middleware.HtmlMinifyMiddleware',
+      # other middleware classes
+      'django.middleware.cache.FetchFromCacheMiddleware',
+      'htmlmin.middleware.MarkRequestMiddleware',
+    )
 
 You can optionally specify the ``HTML_MINIFY`` setting::
 
