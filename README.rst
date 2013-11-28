@@ -26,17 +26,18 @@ For install django-htmlmin, run on terminal: ::
 Using the midleware
 ===================
 
-All you need to do is add ``htmlmin.middleware.HtmlMinifyMiddleware`` to your
-``MIDDLEWARE_CLASSES`` and enable the ``HTML_MINIFY`` setting: ::
+All you need to do is add two middlewares to your ``MIDDLEWARE_CLASSES`` and
+enable the ``HTML_MINIFY`` setting: ::
 
     MIDDLEWARE_CLASSES = (
         # other middleware classes
+        'htmlmin.middleware.MarkRequestMiddleware',
         'htmlmin.middleware.HtmlMinifyMiddleware',
     )
 
-Note that if you're using Django's caching middleware, ``HtmlMinifyMiddleware``
-should be *after* ``UpdateCacheMiddleware``, and *before* 
-``FetchFromCacheMiddleware``.
+Note that if you're using Django's caching middleware, ``MarkRequestMiddleware``
+should go after ``UpdateCacheMiddleware``, and ``HtmlMinifyMiddleware`` should
+go after ``FetchFromCacheMiddleware``.
 
 You can optionally specify the ``HTML_MINIFY`` setting::
 

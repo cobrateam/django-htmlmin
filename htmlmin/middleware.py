@@ -7,12 +7,17 @@ from htmlmin.minify import html_minify
 from django.conf import settings
 
 
+class MarkRequestMiddleware(object):
+    
+    def process_request(self, request):
+        request._hit_htmlmin = True
+
+
 class HtmlMinifyMiddleware(object):
 
     def can_minify_response(self, request, response):
         try:
-            request._hit_htmlmin
-            req_ok = True
+            req_ok = request._hit_htmlmin
         except AttributeError:
             return False
 
@@ -28,9 +33,6 @@ class HtmlMinifyMiddleware(object):
         if hasattr(response, 'minify_response'):
             resp_ok = resp_ok and response.minify_response
         return req_ok and resp_ok
-
-    def process_request(self, request):
-        request._hit_htmlmin = True
 
     def process_response(self, request, response):
         minify = getattr(settings, "HTML_MINIFY", not settings.DEBUG)
