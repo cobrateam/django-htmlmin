@@ -12,7 +12,9 @@ from HTMLParser import HTMLParser
 
 from .util import force_decode, between_two_tags
 
-EXCLUDE_TAGS = ("pre", "script", "textarea",)
+from django.conf import settings
+
+EXCLUDE_TAGS = getattr(settings, "EXCLUDE_TAGS_FROM_MINIFYING", ("pre", "script", "textarea",))
 
 TAGS_PATTERN = "<%s>%d</%s>"
 
