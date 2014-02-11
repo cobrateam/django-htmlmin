@@ -45,7 +45,7 @@ def html_minify(html_code, ignore_comments=True, parser="html5lib"):
         [comment.extract() for comment in soup.findAll(text=f)]
 
     html_code = unicode(soup)
-    html_code = html_code.replace(" \n", " ")
+    html_code = html_code.replace("\n", " ")
     lines = html_code.split("\n")
     minified_lines = []
 
