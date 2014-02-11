@@ -5,11 +5,7 @@
 # license that can be found in the LICENSE file.
 
 import re
-
 import bs4
- 
-from HTMLParser import HTMLParser 
-
 from .util import force_decode, between_two_tags
 
 EXCLUDE_TAGS = ("pre", "script", "textarea",)
