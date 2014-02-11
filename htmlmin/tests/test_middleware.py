@@ -6,7 +6,7 @@ import os
 import sys
 import unittest
 from django.conf import settings
-from htmlmin.middleware import HtmlMinifyMiddleware
+from htmlmin.middleware import HtmlMinifyMiddleware, MarkRequestMiddleware
 from htmlmin.tests import TESTS_DIR
 from mocks import RequestMock, RequestBareMock, ResponseMock, ResponseWithCommentMock
 
@@ -186,7 +186,7 @@ class TestMiddleware(unittest.TestCase):
 
     def test_should_set_flag_when_request_hits_middleware(self):
         request_mock = RequestBareMock()
-        HtmlMinifyMiddleware().process_request(request_mock)
+        MarkRequestMiddleware().process_request(request_mock)
         self.assertTrue(request_mock._hit_htmlmin)
 
     def test_should_not_minify_when_request_did_not_hit_middleware(self):
