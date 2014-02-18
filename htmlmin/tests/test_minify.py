@@ -72,7 +72,7 @@ class TestMinify(unittest.TestCase):
 
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
         self.assertEqual(minified, html_minify(html))
 
     def test_minify_function_should_return_a_unicode_object(self):

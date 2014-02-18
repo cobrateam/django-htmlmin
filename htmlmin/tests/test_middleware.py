@@ -39,7 +39,7 @@ class TestMiddleware(unittest.TestCase):
             RequestMock(), response_mock,
         )
 
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
         self.assertEqual(minified, response.content)
 
     def test_should_minify_with_any_charset(self):
@@ -49,7 +49,7 @@ class TestMiddleware(unittest.TestCase):
             RequestMock(), response_mock,
         )
 
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
         self.assertEqual(minified, response.content)
 
     def test_should_not_minify_not_html_content(self):
@@ -74,7 +74,7 @@ class TestMiddleware(unittest.TestCase):
         old = settings.EXCLUDE_FROM_MINIFYING
         del settings.EXCLUDE_FROM_MINIFYING
 
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
         response = HtmlMinifyMiddleware().process_response(
             RequestMock(), ResponseMock(),
         )
@@ -92,7 +92,7 @@ class TestMiddleware(unittest.TestCase):
         self.assertEqual(html_not_minified, response.content)
 
     def test_should_minify_response_with_minify_response_true(self):
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
         response_mock = ResponseMock()
         response_mock.minify_response = True
         response = HtmlMinifyMiddleware().process_response(
@@ -105,7 +105,7 @@ class TestMiddleware(unittest.TestCase):
         settings.KEEP_COMMENTS_ON_MINIFYING = True
 
         minified = "<html><!-- some comment --><head></head><body>" + \
-                   "some text here </body></html>"
+                   "some text here</body></html>"
         response_mock = ResponseWithCommentMock()
         response = HtmlMinifyMiddleware().process_response(
             RequestMock(), response_mock,
@@ -118,7 +118,7 @@ class TestMiddleware(unittest.TestCase):
         old = settings.KEEP_COMMENTS_ON_MINIFYING
         settings.KEEP_COMMENTS_ON_MINIFYING = False
 
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
         response_mock = ResponseWithCommentMock()
         response = HtmlMinifyMiddleware().process_response(
             RequestMock(), response_mock,
@@ -131,7 +131,7 @@ class TestMiddleware(unittest.TestCase):
         old = settings.KEEP_COMMENTS_ON_MINIFYING
         del settings.KEEP_COMMENTS_ON_MINIFYING
 
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
         response_mock = ResponseWithCommentMock()
         response = HtmlMinifyMiddleware().process_response(
             RequestMock(), response_mock,
@@ -174,7 +174,7 @@ class TestMiddleware(unittest.TestCase):
         del settings.HTML_MINIFY
         settings.DEBUG = False
 
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
 
         response = HtmlMinifyMiddleware().process_response(
             RequestMock(), ResponseMock(),
