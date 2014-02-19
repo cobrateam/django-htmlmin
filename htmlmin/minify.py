@@ -19,7 +19,7 @@ TEXT_FLOW = ("a", "em", "strong", "small", "s", "cite", "q", "dfn", "abbr", "dat
 # fold the doctype element, if True then no newline is added after the
 # doctype element. If False, a newline will be insterted
 FOLD_DOCTYPE = True
-re_multi_space = re.compile(r'\s{2,}', re.MULTILINE|re.UNICODE)
+re_multi_space = re.compile(r'\s+', re.MULTILINE|re.UNICODE)
 re_single_nl = re.compile(r'^\n$', re.MULTILINE|re.UNICODE)
 re_only_space = re.compile(r'^\s+$', re.MULTILINE|re.UNICODE)
 re_start_space = re.compile(r'^\s+', re.MULTILINE|re.UNICODE)
