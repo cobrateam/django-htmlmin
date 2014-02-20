@@ -113,6 +113,10 @@ class TestMinify(unittest.TestCase):
         html, minified = self._normal_and_minified('with_conditional_comments')
         self.assertEqual(minified, html_minify(html))
 
+    def test_should_not_rm_multiline_conditional_comments(self):
+        html, minified = self._normal_and_minified('with_multiple_line_conditional_comments')
+        self.assertEqual(minified, html_minify(html))
+
     def test_should_touch_attributes_only_on_tags(self):
         html = '<html>\n    <body>I selected you!</body>\n    </html>'
         minified = '<html><head></head><body>I selected you!</body></html>'

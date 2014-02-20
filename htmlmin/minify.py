@@ -26,7 +26,11 @@ re_start_space = re.compile(r'^\s+', re.MULTILINE|re.UNICODE)
 re_end_space = re.compile(r'\s+$', re.MULTILINE|re.UNICODE)
 # see http://en.wikipedia.org/wiki/Conditional_comment
 re_cond_comment = re.compile(r'\[if .*\]>.*<!\[endif\]',
-                             re.MULTILINE|re.UNICODE)
+                             re.MULTILINE|re.DOTALL|re.UNICODE)
+re_cond_comment_start_space = re.compile(r'(\[if .*\]>)\s+',
+    re.MULTILINE|re.DOTALL|re.UNICODE)
+re_cond_comment_end_space = re.compile(r'\s+(<!\[endif\])',
+    re.MULTILINE|re.DOTALL|re.UNICODE)
 
 
 def html_minify(html_code, ignore_comments=True, parser="html5lib"):
@@ -59,10 +63,10 @@ def space_minify(soup, ignore_comments=True):
     # if the element is a string ...
     if is_navstr(soup):
         # ... but not a comment, CData, Doctype or others (see
-        # bs4/element.py for list)
+        # bs4/element.py for list).
         if not is_prestr(soup):
             # reduce multiple space characters
-            new_string = re_multi_space.sub(' ', unicode(soup.string))
+            new_string = re_multi_space.sub(' ', soup.string)
             (prev_flow, next_flow) = is_inflow(soup)
             # if the string is in a flow of text, don't remove lone
             # spaces
@@ -87,6 +91,15 @@ def space_minify(soup, ignore_comments=True):
             # bs4 sometimes add a lone newline in the body
             new_string = re_single_nl.sub('', new_string)
             soup.string.replace_with(new_string)
+        # Conditional comment content is HTML code so it should be
+        # minified
+        elif is_cond_comment(soup):
+            new_string = re_multi_space.sub(' ', soup.string)
+            new_string = re_cond_comment_start_space.sub(r'\1',
+                                                         new_string)
+            new_string = re_cond_comment_end_space.sub(r'\1', new_string)
+            new_comment = bs4.element.Comment(new_string)
+            soup.string.replace_with(new_comment)
         # if ignore_comments is True and this is a comment but not a
         # conditional comment and
         elif ignore_comments == True and is_comment(soup):
@@ -113,14 +126,23 @@ def is_prestr(soup):
     return isinstance(soup, bs4.element.PreformattedString)
 
 def is_comment(soup):
-    """test whether an element is a Comment and not a conditional
-    comment, return a boolean.
+    """test whether an element is a Comment, return a boolean.
 
     :param soup: a BeautifulSoup of the code to reduce
     :type soup: bs4.BeautifulSoup
     """
     return isinstance(soup, bs4.element.Comment) \
-        and not re_cond_comment.search(unicode(soup.string))
+        and not re_cond_comment.search(soup.string)
+
+def is_cond_comment(soup):
+    """test whether an element is a conditional comment, return a
+    boolean.
+
+    :param soup: a BeautifulSoup of the code to reduce
+    :type soup: bs4.BeautifulSoup
+    """
+    return isinstance(soup, bs4.element.Comment) \
+        and re_cond_comment.search(soup.string)
 
 def is_inflow(soup):
     """test whether an element belongs to a text flow, returns a tuple
