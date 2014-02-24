@@ -72,7 +72,7 @@ class TestMinify(unittest.TestCase):
 
     def test_html_should_be_minified(self):
         html = "<html>   <body>some text here</body>    </html>"
-        minified = "<html><head></head><body>some text here </body></html>"
+        minified = "<html><head></head><body>some text here</body></html>"
         self.assertEqual(minified, html_minify(html))
 
     def test_minify_function_should_return_a_unicode_object(self):
@@ -111,6 +111,10 @@ class TestMinify(unittest.TestCase):
 
     def test_should_not_exclude_conditional_comments(self):
         html, minified = self._normal_and_minified('with_conditional_comments')
+        self.assertEqual(minified, html_minify(html))
+
+    def test_should_not_rm_multiline_conditional_comments(self):
+        html, minified = self._normal_and_minified('with_multiple_line_conditional_comments')
         self.assertEqual(minified, html_minify(html))
 
     def test_should_touch_attributes_only_on_tags(self):
