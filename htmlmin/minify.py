@@ -14,7 +14,7 @@ EXCLUDE_TAGS = set(["pre", "script", "textarea"])
 # element list coming from
 # https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/HTML5_element_list
 # combining text-level semantics & edits
-TEXT_FLOW = set(["a", "em", "strong", "small", "s", "cite", "q", "dfn", "abbr", "data", "time", "code", "var", "samp", "kbd", "sub", "i", "b", "u", "mark", "ruby", "rt", "rp", "bdi", "bdo", "span", "br", "wbr", "ins", "del"])
+TEXT_FLOW = set(["a", "em", "strong", "small", "s", "cite", "q", "dfn", "abbr", "data", "time", "code", "var", "samp", "kbd", "sup", "sub", "i", "b", "u", "mark", "ruby", "rt", "rp", "bdi", "bdo", "span", "br", "wbr", "ins", "del"])
 
 # fold the doctype element, if True then no newline is added after the
 # doctype element. If False, a newline will be insterted
