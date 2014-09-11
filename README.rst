@@ -23,7 +23,7 @@ For install django-htmlmin, run on terminal: ::
 
     $ [sudo] pip install django-htmlmin
 
-Using the midleware
+Using the middleware
 ===================
 
 All you need to do is add two middlewares to your ``MIDDLEWARE_CLASSES`` and
