@@ -52,7 +52,7 @@ def space_minify(soup, ignore_comments=True):
     :type ignore_comments: bool
     """
     # if tag excluded from minification, just pass
-    if str(soup.name) in EXCLUDE_TAGS:
+    if str(getattr(soup, 'name', '')) in EXCLUDE_TAGS:
         return
 
     # loop through childrens of this element
@@ -154,12 +154,12 @@ def is_inflow(soup):
     :type soup: bs4.BeautifulSoup
     """
     if soup.previous_sibling is not None and \
-        soup.previous_sibling.name in TEXT_FLOW:
+        getattr(soup.previous_sibling, 'name', None) in TEXT_FLOW:
         prev_flow = True
     else:
         prev_flow = False
     if soup.next_sibling is not None and \
-        soup.next_sibling.name in TEXT_FLOW:
+        getattr(soup.next_sibling, 'name', None) in TEXT_FLOW:
         next_flow = True
     else:
         next_flow = False
