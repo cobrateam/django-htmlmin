@@ -19,11 +19,12 @@ TEXT_FLOW = set(["a", "em", "strong", "small", "s", "cite", "q", "dfn", "abbr", 
 # fold the doctype element, if True then no newline is added after the
 # doctype element. If False, a newline will be insterted
 FOLD_DOCTYPE = True
-re_multi_space = re.compile(r'\s+', re.MULTILINE|re.UNICODE)
+re_space = u'((?=\\s)[^\xa0])'
+re_multi_space = re.compile(re_space + '+', re.MULTILINE|re.UNICODE)
 re_single_nl = re.compile(r'^\n$', re.MULTILINE|re.UNICODE)
-re_only_space = re.compile(r'^\s+$', re.MULTILINE|re.UNICODE)
-re_start_space = re.compile(r'^\s+', re.MULTILINE|re.UNICODE)
-re_end_space = re.compile(r'\s+$', re.MULTILINE|re.UNICODE)
+re_only_space = re.compile(r'^' + re_space + r'+$', re.MULTILINE|re.UNICODE)
+re_start_space = re.compile(r'^' + re_space + '+', re.MULTILINE|re.UNICODE)
+re_end_space = re.compile(re_space + r'+$', re.MULTILINE|re.UNICODE)
 # see http://en.wikipedia.org/wiki/Conditional_comment
 re_cond_comment = re.compile(r'\[if .*\]>.*<!\[endif\]',
                              re.MULTILINE|re.DOTALL|re.UNICODE)
