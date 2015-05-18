@@ -150,6 +150,12 @@ class TestMinify(unittest.TestCase):
         got_html = html_minify(html)
         self.assertEqual(minified, got_html)
 
+    def test_should_keep_non_breaking_space(self):
+        html = '<html><head></head><body>This is seperated&nbsp;by a non breaking space.</body></html>'
+        minified = u'<html><head></head><body>This is seperated\xa0by a non breaking space.</body></html>'
+        got_html = html_minify(html)
+        self.assertEqual(minified, got_html)
+
     def test_non_ascii(self):
         html, minified = self._normal_and_minified('non_ascii')
         self.assertEqual(minified, html_minify(html))
