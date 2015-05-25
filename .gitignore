@@ -1,6 +1,7 @@
 *.pyc
 *.swp
 *.swo
+*.bak
 .coverage
 coverage.xml
 nose.xml
