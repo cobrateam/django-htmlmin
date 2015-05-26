@@ -41,7 +41,10 @@ def html_minify(html_code, ignore_comments=True, parser="html5lib"):
     if FOLD_DOCTYPE is True:
         # monkey patching to remove new line after doctype
         bs4.element.Doctype.SUFFIX = six.u('>')
-    return six.u(mini_soup)
+    if six.PY2:
+        return unicode(mini_soup)
+    else:
+        return mini_soup
 
 def space_minify(soup, ignore_comments=True):
     """recursive function to reduce space characters in html code.
