@@ -12,7 +12,7 @@ my_dir = os.getcwd()
 
 def main():
     parser = argparse.ArgumentParser(
-        description=u('Minify content of HTML files'),
+        description=six.u('Minify content of HTML files'),
     )
     parser.add_argument('filename', metavar='filename', type=str, nargs=1)
     parser.add_argument('--keep-comments', action='store_true')

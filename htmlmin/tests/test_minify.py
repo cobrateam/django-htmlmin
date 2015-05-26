@@ -79,7 +79,7 @@ class TestMinify(unittest.TestCase):
     def test_minify_function_should_return_a_unicode_object(self):
         html = "<html>   <body>some text here</body>    </html>"
         minified = html_minify(html)
-        if PY2:
+        if six.PY2:
             self.assertEqual(unicode, type(minified))
         else:
             self.assertEqual(str, type(minified))
