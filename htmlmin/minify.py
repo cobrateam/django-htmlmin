@@ -5,7 +5,7 @@
 # license that can be found in the LICENSE file.
 
 import re
-
+import six
 import bs4
 
 from .util import force_decode
@@ -19,7 +19,7 @@ TEXT_FLOW = set(["a", "em", "strong", "small", "s", "cite", "q", "dfn", "abbr", 
 # fold the doctype element, if True then no newline is added after the
 # doctype element. If False, a newline will be insterted
 FOLD_DOCTYPE = True
-re_space = u'((?=\\s)[^\xa0])'
+re_space = u('((?=\\s)[^\xa0])')
 re_multi_space = re.compile(re_space + '+', re.MULTILINE|re.UNICODE)
 re_single_nl = re.compile(r'^\n$', re.MULTILINE|re.UNICODE)
 re_only_space = re.compile(r'^' + re_space + r'+$', re.MULTILINE|re.UNICODE)
@@ -40,8 +40,8 @@ def html_minify(html_code, ignore_comments=True, parser="html5lib"):
     mini_soup = space_minify(soup, ignore_comments)
     if FOLD_DOCTYPE is True:
         # monkey patching to remove new line after doctype
-        bs4.element.Doctype.SUFFIX = u'>'
-    return unicode(mini_soup)
+        bs4.element.Doctype.SUFFIX = u('>')
+    return u(mini_soup)
 
 def space_minify(soup, ignore_comments=True):
     """recursive function to reduce space characters in html code.
@@ -105,7 +105,7 @@ def space_minify(soup, ignore_comments=True):
         # conditional comment and
         elif ignore_comments == True and is_comment(soup):
             # remove the element
-            soup.string.replace_with(u'')
+            soup.string.replace_with(u(''))
     return soup
 
 def is_navstr(soup):
