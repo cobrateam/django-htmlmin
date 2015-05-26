@@ -2,3 +2,4 @@ argparse
 django==1.5.5
 beautifulsoup4
 html5lib
+six
