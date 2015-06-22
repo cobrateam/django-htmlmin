@@ -31,7 +31,7 @@ class HtmlMinifyMiddleware(object):
                     return False
 
         resp_ok = response.status_code == 200
-        resp_ok = resp_ok and 'text/html' in response['Content-Type']
+        resp_ok = resp_ok and 'text/html' in response.get('Content-Type', '')
         if hasattr(response, 'minify_response'):
             resp_ok = resp_ok and response.minify_response
         return resp_ok

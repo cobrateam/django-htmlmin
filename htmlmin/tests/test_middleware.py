@@ -197,6 +197,18 @@ class TestMiddleware(unittest.TestCase):
                 request_mock, ResponseMock(),
             )
 
+    def test_does_not_throw_error_when_no_content_type_set(self):
+        response_mock = ResponseMock()
+        if 'Content-Type' in response_mock:
+            del response_mock['Content-Type']
+
+        # no self.assertNotRaises exists, but failing test would raise
+        #  a KeyError
+        response = HtmlMinifyMiddleware().process_response(
+            RequestMock(), response_mock,
+        )
+
+
     def test_should_not_minify_when_request_did_not_hit_middleware(self):
         expected_output = "<html>   <body>some text here</body>    </html>"
 
