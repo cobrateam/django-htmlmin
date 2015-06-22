@@ -192,10 +192,13 @@ class TestMiddleware(unittest.TestCase):
     def test_should_never_set_flag_to_false(self):
         request_mock = RequestBareMock()
         request_mock._hit_htmlmin = False
-        with self.assertRaises(ValueError):
+
+        def process():
             response = HtmlMinifyMiddleware().process_response(
                 request_mock, ResponseMock(),
             )
+
+        self.assertRaises(ValueError, process)
 
     def test_does_not_throw_error_when_no_content_type_set(self):
         response_mock = ResponseMock()
