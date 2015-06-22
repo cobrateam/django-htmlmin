@@ -20,6 +20,9 @@ class HtmlMinifyMiddleware(object):
             req_ok = request._hit_htmlmin
         except AttributeError:
             return False
+        else:
+            if not req_ok:
+                raise ValueError("`request._hit_htmlmin` was set to False, when should only be True or not set.")
 
         if hasattr(settings, 'EXCLUDE_FROM_MINIFYING'):
             for url_pattern in settings.EXCLUDE_FROM_MINIFYING:

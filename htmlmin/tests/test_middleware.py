@@ -189,6 +189,14 @@ class TestMiddleware(unittest.TestCase):
         MarkRequestMiddleware().process_request(request_mock)
         self.assertTrue(request_mock._hit_htmlmin)
 
+    def test_should_never_set_flag_to_false(self):
+        request_mock = RequestBareMock()
+        request_mock._hit_htmlmin = False
+        with self.assertRaises(ValueError):
+            response = HtmlMinifyMiddleware().process_response(
+                request_mock, ResponseMock(),
+            )
+
     def test_should_not_minify_when_request_did_not_hit_middleware(self):
         expected_output = "<html>   <body>some text here</body>    </html>"
 
