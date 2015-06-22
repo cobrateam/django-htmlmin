@@ -28,14 +28,13 @@ class HtmlMinifyMiddleware(object):
             for url_pattern in settings.EXCLUDE_FROM_MINIFYING:
                 regex = re.compile(url_pattern)
                 if regex.match(request.path.lstrip('/')):
-                    req_ok = False
-                    break
+                    return False
 
         resp_ok = response.status_code == 200
         resp_ok = resp_ok and 'text/html' in response['Content-Type']
         if hasattr(response, 'minify_response'):
             resp_ok = resp_ok and response.minify_response
-        return req_ok and resp_ok
+        return resp_ok
 
     def process_response(self, request, response):
         minify = getattr(settings, "HTML_MINIFY", not settings.DEBUG)
