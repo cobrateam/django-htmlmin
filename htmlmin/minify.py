@@ -7,6 +7,7 @@
 import re
 
 import bs4
+from django.utils import six
 
 from .util import force_decode
 
@@ -41,7 +42,7 @@ def html_minify(html_code, ignore_comments=True, parser="html5lib"):
     if FOLD_DOCTYPE is True:
         # monkey patching to remove new line after doctype
         bs4.element.Doctype.SUFFIX = u'>'
-    return unicode(mini_soup)
+    return six.text_type(mini_soup)
 
 def space_minify(soup, ignore_comments=True):
     """recursive function to reduce space characters in html code.
