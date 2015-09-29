@@ -4,6 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+import six
 import codecs
 import unittest
 
@@ -78,7 +79,10 @@ class TestMinify(unittest.TestCase):
     def test_minify_function_should_return_a_unicode_object(self):
         html = "<html>   <body>some text here</body>    </html>"
         minified = html_minify(html)
-        self.assertEqual(unicode, type(minified))
+        if six.PY2:
+            self.assertEqual(unicode, type(minified))
+        else:
+            self.assertEqual(str, type(minified))
 
     def test_minify_should_respect_encoding(self):
         html, minified = self._normal_and_minified('blogpost')
