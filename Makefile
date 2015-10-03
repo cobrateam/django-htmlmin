@@ -3,10 +3,10 @@
 # license that can be found in the LICENSE file.
 
 dependencies:
-	@pip install -r test-requirements.txt
+	@pip install -r requirements.txt
 
 clean:
 	@find . -name "*.pyc" -delete
 
 test: dependencies clean
-	@nosetests -s --with-xunit --xunit-file=nose.xml --with-coverage --with-django --django-settings=htmlmin.tests.mock_settings --cover-erase --cover-package=htmlmin --where=htmlmin/tests
+	@PYTHONPATH=. django-admin.py test --settings htmlmin.tests.mock_settings htmlmin
