@@ -14,8 +14,8 @@ class TestDecorator(unittest.TestCase):
 
     def test_should_minify_the_content_of_a_view_decorated(self):
         response = self.client.get('/min')
-        minified = '<html><head></head><body><p>Hello world! :D' + \
-                   '</p><div>Copyright 3000</div></body></html>'
+        minified = b'<html><head></head><body><p>Hello world! :D' + \
+                   b'</p><div>Copyright 3000</div></body></html>'
         self.assertEquals(minified, response.content)
 
     def should_not_touch_the_content_of_an_undecorated_view(self):

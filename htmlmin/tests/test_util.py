@@ -5,25 +5,22 @@
 # license that can be found in the LICENSE file.
 
 import unittest
-from htmlmin.util import force_decode, between_two_tags
+from htmlmin.util import force_text, between_two_tags
 
 
 class TestUtil(unittest.TestCase):
+    def test_should_decode_a_string(self):
+        string = u"Blá blá"
+        self.assertEqual(u"Blá blá", force_text(string))
 
-    def test_should_decode_a_utf8_string(self):
-        string = "Blá blá"
-        self.assertEqual(u"Blá blá", force_decode(string))
-
-    def test_shoulde_decode_a_latin_string(self):
-        unicode_object = "Blá blá".decode("utf-8").encode("latin-1")
-        string = str(unicode_object)
-        self.assertEqual(u"Blá blá", force_decode(string))
+    def test_shoulde_decode_bytes(self):
+        data = b"xpto"
+        self.assertEqual(u"xpto", force_text(data))
 
     def test_should_be_able_to_chose_the_encoding(self):
         ENCODING = 'IBM857'
-        unicode_object = "Blá blá".decode("utf-8").encode(ENCODING)
-        string = str(unicode_object)
-        self.assertEqual(u"Blá blá", force_decode(string, encoding=ENCODING))
+        data = b"xpto".decode("utf-8").encode(ENCODING)
+        self.assertEqual(u"xpto", force_text(data, encoding=ENCODING))
 
     def test_should_be_between_two_tags(self):
         all_lines = [

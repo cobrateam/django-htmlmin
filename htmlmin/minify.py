@@ -8,7 +8,7 @@ import re
 import six
 import bs4
 
-from .util import force_decode
+from .util import force_text
 
 EXCLUDE_TAGS = set(["pre", "script", "textarea"])
 # element list coming from
@@ -35,16 +35,14 @@ re_cond_comment_end_space = re.compile(r'\s+(<!\[endif\])',
 
 
 def html_minify(html_code, ignore_comments=True, parser="html5lib"):
-    html_code = force_decode(html_code)
+    html_code = force_text(html_code)
     soup = bs4.BeautifulSoup(html_code, parser)
     mini_soup = space_minify(soup, ignore_comments)
     if FOLD_DOCTYPE is True:
         # monkey patching to remove new line after doctype
         bs4.element.Doctype.SUFFIX = six.u('>')
-    if six.PY2:
-        return unicode(mini_soup)
-    else:
-        return mini_soup
+    return six.text_type(mini_soup)
+
 
 def space_minify(soup, ignore_comments=True):
     """recursive function to reduce space characters in html code.
