@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2013 django-htmlmin authors. All rights reserved.
+# Copyright 2015 django-htmlmin authors. All rights reserved.
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
@@ -18,9 +18,8 @@ setup(
     author_email='andrewsmedina@gmail.com',
     packages=find_packages(),
     include_package_data=True,
-    test_suite='nose.collector',
     install_requires=['argparse', 'beautifulsoup4', 'html5lib'],
-    tests_require=['nose', 'coverage', 'django'],
+    tests_require=['django'],
     entry_points={
         'console_scripts': [
             'pyminify = htmlmin.commands:main',
