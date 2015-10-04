@@ -5,6 +5,7 @@
 # license that can be found in the LICENSE file.
 
 from __future__ import unicode_literals
+
 import six
 import codecs
 import unittest
@@ -157,7 +158,7 @@ class TestMinify(unittest.TestCase):
 
     def test_should_keep_non_breaking_space(self):
         html = '<html><head></head><body>This is seperated&nbsp;by a non breaking space.</body></html>'
-        minified = u'<html><head></head><body>This is seperated\xa0by a non breaking space.</body></html>'
+        minified = '<html><head></head><body>This is seperated\xa0by a non breaking space.</body></html>'
         got_html = html_minify(html)
         self.assertEqual(minified, got_html)
 
