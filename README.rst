@@ -176,51 +176,7 @@ irc channel
 Changelog
 =========
 
-0.6.2
------
-
-* [bugfix] #39 Breaks CSS and JS containing < and > signs.
-
-0.6.1
------
-
-* [bugfix] Non ascii characters in exclude field fix
-
-0.6
----
-
-* using BeautifulSoup4 as parser
-* full support for HTML 5
-* [bugfix] don't remove conditional comments
-* [partial bugfix] don't remove all spaces around some tags
-
-0.5.1
------
-
-* [bugfix] line breaks inside tags are now replaced by a single white space.
-
-0.5
----
-
-* added support for more HTML 5 tags
-* fixed encoding bug on admin interface
-* added the ``KEEP_COMMENTS_ON_MINIFYING`` setting to keep comments when
-  minifying using the middleware
-
-0.4.3
------
-
-* skipping ``<textarea></textarea>`` content from minifying
-
-0.4.2
------
-
-* [bugfix] fixed behavior for nesting html 5 tags (`issue #14 <https://github.com/cobrateam/django-htmlmin/issues/14>`_)
-
-0.4.1
------
-
-* [bugfix] stopped minifying ``<pre>`` tags (thanks `Cícero Verneck Corrêa <https://github.com/cicerocomp>`_)
+You can see the complete changelog in `releases page <https://github.com/cobrateam/django-htmlmin/releases>`_.
 
 LICENSE
 =======
