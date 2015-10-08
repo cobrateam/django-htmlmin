@@ -5,21 +5,21 @@ django-htmlmin
 .. image:: https://secure.travis-ci.org/cobrateam/django-htmlmin.png
    :target: http://travis-ci.org/cobrateam/django-htmlmin
 
-django-html in an HTML minifier for Python with full support for HTML 5. It
-supports Django, Flask and any other Python web framework. It also provides a
-command line tool that can be used for static websites or deployment scripts.
+django-html is an HTML minifier for Python, with full support for HTML 5. It
+supports Django, Flask and many other Python web frameworks. It also provides a
+command line tool, that can be used for static websites or deployment scripts.
 
 Why minify HTML code?
 =====================
 
-One of important points on client side optimization is minify HTML, with
-minified HTML code, you reduce the size of data transferred from your server to
-your client, and your pages load faster.
+One of the important points on client side optimization is to minify HTML. With
+minified HTML code, you reduce the size of the data transferred from the server
+to the client, which results in faster load times.
 
 Installing
 ==========
 
-For install django-htmlmin, run on terminal: ::
+To install django-htmlmin, run this on the terminal: ::
 
     $ [sudo] pip install django-htmlmin
 
@@ -64,15 +64,15 @@ adding a ``EXCLUDE_FROM_MINIFYING`` setting on your settings.py: ::
 
     EXCLUDE_FROM_MINIFYING = ('^my_app/', '^admin/')
 
-As you can see, you use a regex pattern for URL exclusion. If you want to
-exclude all URLs of your app, except a specific view, you can use the decorator
-``minified_response`` (check the next section above).
+Regex patterns are used for URL exclusion. If you want to exclude all URLs of
+your app, except a specific view, you can use the decorator ``minified_response``
+(check the next section above).
 
 Keeping comments
 ----------------
 
-The default behaviour of the middleware is remove all comments from HTML. If
-you want to keep your comments, set the setting ``KEEP_COMMENTS_ON_MINIFYING``
+The default behaviour of the middleware is to remove all HTML comments. If you
+want to keep the comments, set the setting ``KEEP_COMMENTS_ON_MINIFYING``
 to ``True``: ::
 
     KEEP_COMMENTS_ON_MINIFYING = True
@@ -92,8 +92,9 @@ want to minify the response: ::
 Decorator to avoid response to be minified
 ------------------------------------------
 
-You can use ``not_minified_response`` decorator on views if you want avoid
-response to be minified instead to use ``EXCLUDE_FROM_MINIFYING`` setting: ::
+You can use the ``not_minified_response`` decorator on views if you want to avoid
+the minification of any specific response, without using the ``EXCLUDE_FROM_MINIFYING``
+setting: ::
 
     from htmlmin.decorators import not_minified_response
 
@@ -143,7 +144,7 @@ tool to minify HTML files: ::
 
     $ pyminify index.html > index_minified.html
 
-You can also keep comments, if you want: ::
+You can also keep the comments, if you want: ::
 
     $ pyminify --keep-comments index.html > index_minified_with_comments.html
 
@@ -154,12 +155,12 @@ development
 * Report issues on `GitHub Issues
   <http://github.com/cobrateam/django-htmlmin/issues>`_
 
-Pull requests are very welcomed! Make sure your patches are well tested.
+Pull requests are very welcome! Make sure your patches are well tested.
 
 Running tests
 -------------
 
-If you are using a virtualenv, all you need is:
+If you are using a virtualenv, all you need to do is:
 
 ::
 
