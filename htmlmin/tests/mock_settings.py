@@ -19,5 +19,5 @@ SECRET_KEY = "sosecret"
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-   }
+    }
 }

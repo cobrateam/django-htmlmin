@@ -5,7 +5,9 @@
 # license that can be found in the LICENSE file.
 
 import re
+
 import six
+
 import bs4
 
 from .util import force_text
@@ -14,24 +16,28 @@ EXCLUDE_TAGS = set(["pre", "script", "textarea"])
 # element list coming from
 # https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/HTML5_element_list
 # combining text-level semantics & edits
-TEXT_FLOW = set(["a", "em", "strong", "small", "s", "cite", "q", "dfn", "abbr", "data", "time", "code", "var", "samp", "kbd", "sup", "sub", "i", "b", "u", "mark", "ruby", "rt", "rp", "bdi", "bdo", "span", "br", "wbr", "ins", "del"])
+TEXT_FLOW = {
+    "a", "em", "strong", "small", "s", "cite", "q", "dfn", "abbr", "data",
+    "time", "code", "var", "samp", "kbd", "sup", "sub", "i", "b", "u", "mark",
+    "ruby", "rt", "rp", "bdi", "bdo", "span", "br", "wbr", "ins", "del",
+}
 
 # fold the doctype element, if True then no newline is added after the
 # doctype element. If False, a newline will be insterted
 FOLD_DOCTYPE = True
 re_space = six.u('((?=\\s)[^\xa0])')
-re_multi_space = re.compile(re_space + '+', re.MULTILINE|re.UNICODE)
-re_single_nl = re.compile(r'^\n$', re.MULTILINE|re.UNICODE)
-re_only_space = re.compile(r'^' + re_space + r'+$', re.MULTILINE|re.UNICODE)
-re_start_space = re.compile(r'^' + re_space + '+', re.MULTILINE|re.UNICODE)
-re_end_space = re.compile(re_space + r'+$', re.MULTILINE|re.UNICODE)
+re_multi_space = re.compile(re_space + '+', re.MULTILINE | re.UNICODE)
+re_single_nl = re.compile(r'^\n$', re.MULTILINE | re.UNICODE)
+re_only_space = re.compile(r'^' + re_space + r'+$', re.MULTILINE | re.UNICODE)
+re_start_space = re.compile(r'^' + re_space + '+', re.MULTILINE | re.UNICODE)
+re_end_space = re.compile(re_space + r'+$', re.MULTILINE | re.UNICODE)
 # see http://en.wikipedia.org/wiki/Conditional_comment
 re_cond_comment = re.compile(r'\[if .*\]>.*<!\[endif\]',
-                             re.MULTILINE|re.DOTALL|re.UNICODE)
+                             re.MULTILINE | re.DOTALL | re.UNICODE)
 re_cond_comment_start_space = re.compile(r'(\[if .*\]>)\s+',
-    re.MULTILINE|re.DOTALL|re.UNICODE)
+                                         re.MULTILINE | re.DOTALL | re.UNICODE)
 re_cond_comment_end_space = re.compile(r'\s+(<!\[endif\])',
-    re.MULTILINE|re.DOTALL|re.UNICODE)
+                                       re.MULTILINE | re.DOTALL | re.UNICODE)
 
 
 def html_minify(html_code, ignore_comments=True, parser="html5lib"):
@@ -104,10 +110,11 @@ def space_minify(soup, ignore_comments=True):
             soup.string.replace_with(new_comment)
         # if ignore_comments is True and this is a comment but not a
         # conditional comment and
-        elif ignore_comments == True and is_comment(soup):
+        elif ignore_comments is True and is_comment(soup):
             # remove the element
             soup.string.replace_with(six.u(''))
     return soup
+
 
 def is_navstr(soup):
     """test whether an element is a NavigableString or not, return a
@@ -118,6 +125,7 @@ def is_navstr(soup):
     """
     return isinstance(soup, bs4.element.NavigableString)
 
+
 def is_prestr(soup):
     """test whether an element is a PreformattedString or not, return a
     boolean.
@@ -127,6 +135,7 @@ def is_prestr(soup):
     """
     return isinstance(soup, bs4.element.PreformattedString)
 
+
 def is_comment(soup):
     """test whether an element is a Comment, return a boolean.
 
@@ -135,6 +144,7 @@ def is_comment(soup):
     """
     return isinstance(soup, bs4.element.Comment) \
         and not re_cond_comment.search(soup.string)
+
 
 def is_cond_comment(soup):
     """test whether an element is a conditional comment, return a
@@ -146,6 +156,7 @@ def is_cond_comment(soup):
     return isinstance(soup, bs4.element.Comment) \
         and re_cond_comment.search(soup.string)
 
+
 def is_inflow(soup):
     """test whether an element belongs to a text flow, returns a tuple
     of two booleans describing the flow around the element. The first
@@ -156,12 +167,12 @@ def is_inflow(soup):
     :type soup: bs4.BeautifulSoup
     """
     if soup.previous_sibling is not None and \
-        soup.previous_sibling.name in TEXT_FLOW:
+       soup.previous_sibling.name in TEXT_FLOW:
         prev_flow = True
     else:
         prev_flow = False
     if soup.next_sibling is not None and \
-        soup.next_sibling.name in TEXT_FLOW:
+       soup.next_sibling.name in TEXT_FLOW:
         next_flow = True
     else:
         next_flow = False

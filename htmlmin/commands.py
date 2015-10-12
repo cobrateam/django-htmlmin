@@ -4,7 +4,9 @@
 
 import argparse
 import os
+
 import six
+
 from htmlmin.minify import html_minify
 
 my_dir = os.getcwd()

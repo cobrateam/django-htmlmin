@@ -5,9 +5,10 @@
 # license that can be found in the LICENSE file.
 
 from __future__ import unicode_literals
+
 import unittest
 
-from htmlmin.util import force_text, between_two_tags
+from htmlmin.util import between_two_tags, force_text
 
 
 class TestUtil(unittest.TestCase):

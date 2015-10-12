@@ -26,6 +26,7 @@ def force_text(s, encoding="utf-8"):
     except (UnicodeDecodeError, UnicodeEncodeError):
         pass
 
+
 def between_two_tags(current_line, all_lines, index):
     st = current_line and not current_line.startswith('<')
     if st and not all_lines[index - 1].endswith('>'):

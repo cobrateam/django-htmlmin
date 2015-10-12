@@ -10,9 +10,10 @@ Description: Code based on snippet available in the link below.
     https://github.com/readevalprint/mini-django/blob/master/pico_django.py
 '''
 
-from django.http import HttpResponse
 from django.conf.urls import patterns
+from django.http import HttpResponse
 from htmlmin.decorators import minified_response, not_minified_response
+
 
 CONTENT = '''
 <html>
