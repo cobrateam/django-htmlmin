@@ -8,7 +8,7 @@ from django.conf import settings
 
 
 class MarkRequestMiddleware(object):
-    
+
     def process_request(self, request):
         request._hit_htmlmin = True
 
