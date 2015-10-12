@@ -5,7 +5,9 @@
 # license that can be found in the LICENSE file.
 
 import re
+
 import six
+
 import bs4
 
 from .util import force_text

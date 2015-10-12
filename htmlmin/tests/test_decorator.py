@@ -3,6 +3,7 @@
 # license that can be found in the LICENSE file.
 
 import unittest
+
 from django.test.client import Client
 
 

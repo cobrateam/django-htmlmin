@@ -6,12 +6,13 @@
 
 from __future__ import unicode_literals
 
-import six
 import codecs
 import unittest
+from os.path import abspath, dirname, join
+
+import six
 
 from htmlmin.minify import html_minify
-from os.path import abspath, dirname, join
 
 resources_path = lambda *paths: abspath(join(dirname(__file__),
                                              'resources', *paths))
@@ -171,4 +172,3 @@ class TestMinify(unittest.TestCase):
             'non_ascii_in_excluded_element'
         )
         self.assertEqual(minified, html_minify(html))
-

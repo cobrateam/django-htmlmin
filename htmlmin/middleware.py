@@ -3,8 +3,9 @@
 # license that can be found in the LICENSE file.
 
 import re
-from htmlmin.minify import html_minify
+
 from django.conf import settings
+from htmlmin.minify import html_minify
 
 
 class MarkRequestMiddleware(object):

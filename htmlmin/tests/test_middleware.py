@@ -5,10 +5,12 @@
 import os
 import sys
 import unittest
+
 from django.conf import settings
 from htmlmin.middleware import HtmlMinifyMiddleware, MarkRequestMiddleware
 from htmlmin.tests import TESTS_DIR
-from htmlmin.tests.mocks import RequestMock, RequestBareMock, ResponseMock, ResponseWithCommentMock
+from htmlmin.tests.mocks import (RequestBareMock, RequestMock, ResponseMock,
+                                 ResponseWithCommentMock)
 
 
 class TestMiddleware(unittest.TestCase):
