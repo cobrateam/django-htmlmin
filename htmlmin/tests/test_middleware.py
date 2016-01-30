@@ -25,16 +25,6 @@ class TestMiddleware(unittest.TestCase):
         sys.path.remove(TESTS_DIR)
         del os.environ['DJANGO_SETTINGS_MODULE']
 
-    def test_should_minify_only_when_status_code_is_200(self):
-        response_mock = ResponseMock()
-        response_mock.status_code = 301
-        response = HtmlMinifyMiddleware().process_response(
-            RequestMock(), response_mock,
-        )
-
-        html_not_minified = "<html>   <body>some text here</body>    </html>"
-        self.assertEqual(html_not_minified, response.content)
-
     def test_should_minify_response_when_mime_type_is_html(self):
         response_mock = ResponseMock()
         response = HtmlMinifyMiddleware().process_response(
