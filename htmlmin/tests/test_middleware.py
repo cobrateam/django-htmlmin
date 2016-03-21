@@ -44,6 +44,16 @@ class TestMiddleware(unittest.TestCase):
         minified = "<html><head></head><body>some text here</body></html>"
         self.assertEqual(minified, response.content)
 
+    def test_should_not_minify_without_content(self):
+        response_mock = ResponseMock()
+        del response_mock['Content-Type']
+        response = HtmlMinifyMiddleware().process_response(
+            RequestMock(), response_mock,
+        )
+
+        html_not_minified = "<html>   <body>some text here</body>    </html>"
+        self.assertEqual(html_not_minified, response.content)
+
     def test_should_not_minify_not_html_content(self):
         response_mock = ResponseMock()
         response_mock['Content-Type'] = 'application/json'
