@@ -7,12 +7,21 @@
 import re
 
 import six
-
 import bs4
+
+try:
+    from django.conf import settings
+except:
+    settings = {}
 
 from .util import force_text
 
-EXCLUDE_TAGS = set(["pre", "script", "textarea"])
+EXCLUDE_TAGS = ("pre", "script", "textarea",)
+try:
+    EXCLUDE_TAGS = getattr(settings, "EXCLUDE_TAGS_FROM_MINIFYING", ("pre", "script", "textarea",))
+except:
+    pass  # working in non Django projects
+
 # element list coming from
 # https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/HTML5_element_list
 # combining text-level semantics & edits

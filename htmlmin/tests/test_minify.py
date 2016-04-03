@@ -10,6 +10,8 @@ import codecs
 import unittest
 from os.path import abspath, dirname, join
 
+from django.conf import settings
+
 import six
 
 from htmlmin.minify import html_minify
