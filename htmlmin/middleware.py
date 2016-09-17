@@ -42,4 +42,6 @@ class HtmlMinifyMiddleware(object):
             response.content = html_minify(response.content,
                                            ignore_comments=not keep_comments,
                                            parser=parser)
+            if response.get('Content-Length', None):
+                response['Content-Length'] = len(response.content)
         return response
