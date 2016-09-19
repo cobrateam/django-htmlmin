@@ -7,6 +7,8 @@ import sys
 import unittest
 
 from django.conf import settings
+from django.middleware.http import ConditionalGetMiddleware
+from django.http.response import HttpResponse
 from htmlmin.middleware import HtmlMinifyMiddleware, MarkRequestMiddleware
 from htmlmin.tests import TESTS_DIR
 from htmlmin.tests.mocks import (RequestBareMock, RequestMock, ResponseMock,
@@ -199,3 +201,11 @@ class TestMiddleware(unittest.TestCase):
             request_mock, ResponseMock(),
         )
         self.assertEqual(expected_output, response.content)
+
+    def test_should_return_correct_content_length_header_after_minify(self):
+        content_input = "<html>   <body>some text here</body>    </html>"
+
+        request_mock = RequestMock()
+        response = ConditionalGetMiddleware().process_response(request_mock, HttpResponse(content_input))
+        response = HtmlMinifyMiddleware().process_response(request_mock, response)
+        self.assertEqual(int(response['Content-Length']), len(response.content))
