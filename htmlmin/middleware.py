@@ -10,11 +10,33 @@ from htmlmin.minify import html_minify
 
 class MarkRequestMiddleware(object):
 
+    def __init__(self, get_response = None):
+        self.get_response = get_response
+	
+	
+    def __call__(self, request):
+        self.process_request(request)
+	
+        response = self.get_response(request)
+		
+        return response
+
     def process_request(self, request):
         request._hit_htmlmin = True
 
 
 class HtmlMinifyMiddleware(object):
+
+    def __init__(self, get_response = None):
+        self.get_response = get_response
+		
+		
+    def __call__(self, request):
+        response = self.get_response(request)
+		
+        self.process_response(request, response)
+		
+        return response
 
     def can_minify_response(self, request, response):
         try:
