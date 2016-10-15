@@ -3,4 +3,4 @@ sudo: false
 install:
   - pip install -U setuptools
   - make dependencies
-script: tox
+script: make test
