@@ -3,3 +3,4 @@ django==1.9.6
 beautifulsoup4
 html5lib
 six
+tox==2.4.1
