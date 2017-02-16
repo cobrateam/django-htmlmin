@@ -72,7 +72,7 @@ You can also optionally specify the ``HTML_MINIFY_AJAX`` setting:
     HTML_MINIFY_AJAX = False
 
 The default value for the ``HTML_MINIFY_AJAX`` setting is ``True``. You only
-need to set it to ``True`` if don't want to minify AJAX requests.
+need to set it to ``False`` if don't want to minify AJAX requests.
 
 Excluding some URLs
 -------------------
