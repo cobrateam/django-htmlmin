@@ -51,7 +51,7 @@ class HtmlMinifyMiddleware(object):
                     req_ok = False
                     break
 			
-	if not getattr(settings, 'HTML_MINIFY_AJAX', True) and request.is_ajax():
+        if not getattr(settings, 'HTML_MINIFY_AJAX', True) and request.is_ajax():
             return False
 
         resp_ok = 'text/html' in response.get('Content-Type', '')
