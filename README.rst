@@ -64,6 +64,16 @@ The default value for the ``HTML_MINIFY`` setting is ``not DEBUG``. You only
 need to set it to ``True`` if you want to minify your HTML code when ``DEBUG``
 is enabled.
 
+You can also optionally specify the ``HTML_MINIFY_AJAX`` setting:
+
+
+.. code-block:: python
+
+    HTML_MINIFY_AJAX = False
+
+The default value for the ``HTML_MINIFY_AJAX`` setting is ``True``. You only
+need to set it to ``True`` if don't want to minify AJAX requests.
+
 Excluding some URLs
 -------------------
 
