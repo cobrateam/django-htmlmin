@@ -1,6 +1,6 @@
 argparse
-django==1.9.6
+django==1.11.11
 beautifulsoup4
 html5lib
-six==1.10.0
-tox==2.4.1
+six==1.11.0
+tox==2.9.1
