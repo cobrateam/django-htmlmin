@@ -199,3 +199,12 @@ class TestMiddleware(unittest.TestCase):
             request_mock, ResponseMock(),
         )
         self.assertEqual(expected_output, response.content)
+
+    def test_content_length_header_should_contain_minified_size(self):
+        response_mock = ResponseMock()
+        response = HtmlMinifyMiddleware().process_response(
+            RequestMock(), response_mock,
+        )
+
+        minified = "<html><head></head><body>some text here</body></html>"
+        self.assertEqual(len(minified), response['Content-Length'])
