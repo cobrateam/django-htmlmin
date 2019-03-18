@@ -9,4 +9,5 @@ clean:
 	@find . -name "*.pyc" -delete
 
 test: dependencies clean
-	@tox
+	@PYTHONPATH=. django-admin.py test --settings htmlmin.tests.mock_settings htmlmin
+
