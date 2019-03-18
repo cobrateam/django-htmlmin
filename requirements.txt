@@ -2,5 +2,5 @@ argparse
 django==1.11.20
 beautifulsoup4
 html5lib
-six==1.11.0
+six==1.12.0
 tox==3.7.0
