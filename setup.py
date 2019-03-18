@@ -42,10 +42,10 @@ setup(
     },
     keywords='django, html, minifier, minify',
     classifiers=[
-        "Programming Language :: Python :: 2",
         'Development Status :: 5 - Production/Stable',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
+        'Framework :: Django :: 1.11',
+        'Framework :: Django :: 2.0',
+        'Framework :: Django :: 2.1',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
@@ -55,6 +55,8 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Text Processing :: Markup :: HTML',
     ],
 )
