@@ -10,7 +10,7 @@ Description: Code based on snippet available in the link below.
     https://github.com/readevalprint/mini-django/blob/master/pico_django.py
 '''
 
-from django.conf.urls import patterns
+from django.conf.urls import url
 from django.http import HttpResponse
 from htmlmin.decorators import minified_response, not_minified_response
 
@@ -38,7 +38,9 @@ def not_minified(request):
 def raw(request):
     return HttpResponse(CONTENT)
 
-urlpatterns = patterns('',
-                       (r'^min$', minified),
-                       (r'^raw$', raw),
-                       (r'^not_min$', not_minified))
+
+urlpatterns = [
+    url(r'^min$', minified),
+    url(r'^raw$', raw),
+    url(r'^not_min$', not_minified)
+]
