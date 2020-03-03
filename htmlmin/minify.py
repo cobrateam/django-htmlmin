@@ -32,7 +32,7 @@ TEXT_FLOW = {
 }
 
 # fold the doctype element, if True then no newline is added after the
-# doctype element. If False, a newline will be insterted
+# doctype element. If False, a newline will be inserted
 FOLD_DOCTYPE = True
 re_space = six.u('((?=\\s)[^\xa0])')
 re_multi_space = re.compile(re_space + '+', re.MULTILINE | re.UNICODE)
