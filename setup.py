@@ -6,6 +6,7 @@ license that can be found in the LICENSE file.
 """
 import os
 import re
+import sys
 
 from setuptools import setup, find_packages
 
@@ -23,6 +24,12 @@ version = get_version('htmlmin')
 with open('README.rst', 'r') as fp:
     README = fp.read()
 
+tests_require = ['django']
+if (sys.version_info[0] == 2
+        or (sys.version_info[0] == 3 and sys.version_info[1] < 3)):
+    # 'mock' is a separate library prior to Python 3.3
+    tests_require.append('mock')
+
 setup(
     name='django-htmlmin',
     version=version,
@@ -34,7 +41,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=['beautifulsoup4', 'html5lib'],
-    tests_require=['django'],
+    tests_require=tests_require,
     entry_points={
         'console_scripts': [
             'pyminify = htmlmin.commands:main',

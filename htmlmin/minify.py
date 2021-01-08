@@ -22,6 +22,13 @@ try:
 except:
     pass  # working in non Django projects
 
+# if `True`, reduce whitespace to a single space only
+CONSERVATIVE_WHITESPACE = False
+try:
+    CONSERVATIVE_WHITESPACE = getattr(settings, "CONSERVATIVE_WHITESPACE_ON_MINIFYING", False)
+except:
+    pass  # working in non Django projects
+
 # element list coming from
 # https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/HTML5_element_list
 # combining text-level semantics & edits
@@ -84,27 +91,28 @@ def space_minify(soup, ignore_comments=True):
         if not is_prestr(soup):
             # reduce multiple space characters
             new_string = re_multi_space.sub(' ', soup.string)
-            (prev_flow, next_flow) = is_inflow(soup)
-            # if the string is in a flow of text, don't remove lone
-            # spaces
-            if prev_flow and next_flow:
-                new_string = re_only_space.sub(' ', new_string)
-            # else, remove spaces, they are between grouping, section,
-            # metadata or other types of block
-            else:
-                new_string = re_only_space.sub('', new_string)
-            # if the previous element is not text then remove leading
-            # spaces
-            if prev_flow:
-                new_string = re_start_space.sub(' ', new_string)
-            else:
-                new_string = re_start_space.sub('', new_string)
-            # if the previous element is not text then remove leading
-            # spaces
-            if next_flow:
-                new_string = re_end_space.sub(' ', new_string)
-            else:
-                new_string = re_end_space.sub('', new_string)
+            if not CONSERVATIVE_WHITESPACE:
+                (prev_flow, next_flow) = is_inflow(soup)
+                # if the string is in a flow of text, don't remove lone
+                # spaces
+                if prev_flow and next_flow:
+                    new_string = re_only_space.sub(' ', new_string)
+                # else, remove spaces, they are between grouping, section,
+                # metadata or other types of block
+                else:
+                    new_string = re_only_space.sub('', new_string)
+                # if the previous element is not text then remove leading
+                # spaces
+                if prev_flow:
+                    new_string = re_start_space.sub(' ', new_string)
+                else:
+                    new_string = re_start_space.sub('', new_string)
+                # if the previous element is not text then remove leading
+                # spaces
+                if next_flow:
+                    new_string = re_end_space.sub(' ', new_string)
+                else:
+                    new_string = re_end_space.sub('', new_string)
             # bs4 sometimes add a lone newline in the body
             new_string = re_single_nl.sub('', new_string)
             soup.string.replace_with(new_string)

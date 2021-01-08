@@ -15,15 +15,22 @@ import six
 from htmlmin.minify import html_minify
 
 
+try:
+    from unittest.mock import patch  # python 3.3 and greater
+except ImportError:
+    from mock import patch
+
+
 def resources_path(*paths):
     return abspath(join(dirname(__file__), 'resources', *paths))
 
 
 class TestMinify(unittest.TestCase):
 
-    def _normal_and_minified(self, filename):
+    def _normal_and_minified(self, filename, variant=None):
         html_file = resources_path('%s.html' % filename)
-        html_file_minified = resources_path('%s_minified.html' % filename)
+        minified_postfix = '_%s' % variant if variant else ''
+        html_file_minified = resources_path('%s_minified%s.html' % (filename, minified_postfix))
 
         html = open(html_file).read()
         f_minified = codecs.open(html_file_minified, encoding='utf-8')
@@ -172,4 +179,15 @@ class TestMinify(unittest.TestCase):
         html, minified = self._normal_and_minified(
             'non_ascii_in_excluded_element'
         )
+        self.assertEqual(minified, html_minify(html))
+
+    def test_non_conservative_whitespace(self):
+        self.maxDiff = None
+        html, minified = self._normal_and_minified('inline_whitespace')
+        self.assertEqual(minified, html_minify(html))
+
+    @patch('htmlmin.minify.CONSERVATIVE_WHITESPACE', True)
+    def test_conservative_whitespace(self):
+        self.maxDiff = None
+        html, minified = self._normal_and_minified('inline_whitespace', variant='conservative')
         self.assertEqual(minified, html_minify(html))
