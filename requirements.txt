@@ -3,3 +3,4 @@ django==1.11.28
 beautifulsoup4==4.7.1
 html5lib==1.0.1
 six==1.12.0
+mock

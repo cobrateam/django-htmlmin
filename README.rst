@@ -90,6 +90,19 @@ to ``True``:
 
     KEEP_COMMENTS_ON_MINIFYING = True
 
+Conservative whitespace minifying
+---------------------------------
+
+By default the minifier will try to intelligently remove whitespace and leave
+spaces only as needed for inline text rendering.  Sometimes it may be necessary
+to not completely remove whitespace but only reduce spaces to a single space.
+If you set ``CONSERVATIVE_WHITESPACE_ON_MINIFYING`` to ``False`` then
+whitespace is always reduced to a single space and never completely removed.
+
+.. code-block:: python
+
+    CONSERVATIVE_WHITESPACE_ON_MINIFYING = True
+
 Using the decorator
 ===================
 
