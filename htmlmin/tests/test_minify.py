@@ -191,3 +191,87 @@ class TestMinify(unittest.TestCase):
         self.maxDiff = None
         html, minified = self._normal_and_minified('inline_whitespace', variant='conservative')
         self.assertEqual(minified, html_minify(html))
+
+    def test_inline_text_spacing(self):
+        self.maxDiff = None
+        html = '''<html><head></head><body>
+            <p>a <u> b</u></p>
+            <p>c<u> d</u></p>
+            <p>e <u>f</u></p>
+            <p><u>g </u> h</p>
+            <p><u>i</u> j</p>
+            <p><u>k </u>l</p>
+            <p><u>m </u> <u> n</u></p>
+            <p><u>o</u> <u> p</u></p>
+            <p><u>q </u> <u>r</u></p>
+            <p><u>s</u> <u>t</u></p>
+            <p><u>u</u><u> v</u></p>
+            <p><u>w </u><u>x</u></p>
+            <p> <u> y </u> </p>
+            <p> <s> <u> z </u> </s> </p>
+        </body></html>'''
+        minified = (
+            '<html><head></head><body>'
+            '<p>a <u> b</u></p>'
+            '<p>c<u> d</u></p>'
+            '<p>e <u>f</u></p>'
+            '<p><u>g </u> h</p>'
+            '<p><u>i</u> j</p>'
+            '<p><u>k </u>l</p>'
+            '<p><u>m </u> <u> n</u></p>'
+            '<p><u>o</u> <u> p</u></p>'
+            '<p><u>q </u> <u>r</u></p>'
+            '<p><u>s</u> <u>t</u></p>'
+            '<p><u>u</u><u> v</u></p>'
+            '<p><u>w </u><u>x</u></p>'
+            '<p><u> y </u></p>'
+            '<p><s> <u> z </u> </s></p>'
+            '</body></html>'
+        )
+        self.assertEqual(minified, html_minify(html))
+
+    def test_inline_text_spacing_with_nontext_prev_siblings(self):
+        self.maxDiff = None
+        html = '''<html><head></head><body>
+            <div><div>m </div> <u> n</u></div>
+            <div><div>o</div> <u> p</u></div>
+            <div><div>q </div> <u>r</u></div>
+            <div><div>s</div> <u>t</u></div>
+            <div><div>u</div><u> v</u></div>
+            <div><div>w </div><u>x</u></div>
+            <div> <div> y </div> </div>
+        </body></html>'''
+        minified = (
+            '<html><head></head><body>'
+            '<div><div>m</div><u> n</u></div>'
+            '<div><div>o</div><u> p</u></div>'
+            '<div><div>q</div><u>r</u></div>'
+            '<div><div>s</div><u>t</u></div>'
+            '<div><div>u</div><u> v</u></div>'
+            '<div><div>w</div><u>x</u></div>'
+            '<div><div>y</div></div>'
+            '</body></html>'
+        )
+        self.assertEqual(minified, html_minify(html))
+
+    def test_inline_text_spacing_with_nontext_next_siblings(self):
+        self.maxDiff = None
+        html = '''<html><head></head><body>
+            <div><u>m </u> <div> n</div></div>
+            <div><u>o</u> <div> p</div></div>
+            <div><u>q </u> <div>r</div></div>
+            <div><u>s</u> <div>t</div></div>
+            <div><u>u</u><div> v</div></div>
+            <div><u>w </u><div>x</div></div>
+        </body></html>'''
+        minified = (
+            '<html><head></head><body>'
+            '<div><u>m </u><div>n</div></div>'
+            '<div><u>o</u><div>p</div></div>'
+            '<div><u>q </u><div>r</div></div>'
+            '<div><u>s</u><div>t</div></div>'
+            '<div><u>u</u><div>v</div></div>'
+            '<div><u>w </u><div>x</div></div>'
+            '</body></html>'
+        )
+        self.assertEqual(minified, html_minify(html))

@@ -175,23 +175,19 @@ def is_cond_comment(soup):
 
 
 def is_inflow(soup):
-    """test whether an element belongs to a text flow, returns a tuple
+    """Test whether a NavigableString belongs to a text flow, returns a tuple
     of two booleans describing the flow around the element. The first
     boolean represents the flow before the element, the second boolean
     represents the flow after the element.
 
-    :param soup: a BeautifulSoup of the code to reduce
-    :type soup: bs4.BeautifulSoup
+    :param soup: a NavigableString of the code to reduce
+    :type soup: bs4.element.NavigableString
     """
-    if soup.previous_sibling is not None and \
-       soup.previous_sibling.name in TEXT_FLOW:
-        prev_flow = True
-    else:
-        prev_flow = False
-    if soup.next_sibling is not None and \
-       soup.next_sibling.name in TEXT_FLOW:
-        next_flow = True
-    else:
-        next_flow = False
+    def is_text_tag(soup):
+        return soup and soup.name in TEXT_FLOW
 
-    return (prev_flow, next_flow)
+    if is_text_tag(soup.parent):
+        # NavigableString is within a text tag element
+        return (True, True)
+
+    return (is_text_tag(soup.previous_sibling), is_text_tag(soup.next_sibling))
