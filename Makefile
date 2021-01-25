@@ -11,5 +11,8 @@ clean:
 	@find . -name "*.pyc" -delete
 
 .PHONY: test
-test: dependencies clean
-	@django-admin.py test --settings htmlmin.tests.mock_settings htmlmin
+test: dependencies clean runtests
+
+.PHONY: runtests
+runtests:
+	django-admin.py test --settings htmlmin.tests.mock_settings htmlmin
