@@ -19,6 +19,7 @@ def get_version(package):
         init_py = fp.read()
     return re.search("__version__ = ['\"]([^'\"]+)['\"]", init_py).group(1)
 
+
 version = get_version('htmlmin')
 
 with open('README.rst', 'r') as fp:
@@ -41,6 +42,9 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=['beautifulsoup4', 'html5lib'],
+    extras_require={
+        'test': tests_require,
+    },
     tests_require=tests_require,
     entry_points={
         'console_scripts': [

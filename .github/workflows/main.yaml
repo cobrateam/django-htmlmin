@@ -1,0 +1,31 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  run-tests:
+    name: run-tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - "2.7.x"
+          - "3.6.x"
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - uses: actions/setup-python@v2.2.1
+        with:
+          python-version: "${{ matrix.python-version }}"
+
+      - run: make dependencies
+
+      - run: make runtests
