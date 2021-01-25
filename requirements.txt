@@ -1,6 +1,3 @@
-argparse
-django==1.11.29
-beautifulsoup4==4.7.1
-html5lib==1.0.1
+-e .[test]
 six==1.12.0
 mock
