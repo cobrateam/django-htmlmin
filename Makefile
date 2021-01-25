@@ -12,4 +12,4 @@ clean:
 
 .PHONY: test
 test: dependencies clean
-	@PYTHONPATH=. django-admin.py test --settings htmlmin.tests.mock_settings htmlmin
+	@django-admin.py test --settings htmlmin.tests.mock_settings htmlmin
