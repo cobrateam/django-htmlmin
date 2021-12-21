@@ -10,7 +10,7 @@ Description: Code based on snippet available in the link below.
     https://github.com/readevalprint/mini-django/blob/master/pico_django.py
 '''
 
-from django.conf.urls import url
+from django.urls import path
 from django.http import HttpResponse
 from htmlmin.decorators import minified_response, not_minified_response
 
@@ -40,7 +40,7 @@ def raw(request):
 
 
 urlpatterns = [
-    url(r'^min$', minified),
-    url(r'^raw$', raw),
-    url(r'^not_min$', not_minified)
+    path('min', minified),
+    path('raw', raw),
+    path('not_min', not_minified)
 ]
