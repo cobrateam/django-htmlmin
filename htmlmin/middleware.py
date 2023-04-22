@@ -5,6 +5,7 @@
 import re
 
 from django.conf import settings
+from django.http.response import StreamingHttpResponse
 
 from htmlmin.minify import html_minify
 
@@ -13,13 +14,13 @@ class MarkRequestMiddleware(object):
 
     def __init__(self, get_response = None):
         self.get_response = get_response
-	
-	
+
+
     def __call__(self, request):
         self.process_request(request)
-	
+
         response = self.get_response(request)
-		
+
         return response
 
     def process_request(self, request):
@@ -30,16 +31,20 @@ class HtmlMinifyMiddleware(object):
 
     def __init__(self, get_response = None):
         self.get_response = get_response
-		
-		
+
+
     def __call__(self, request):
         response = self.get_response(request)
-		
+
         self.process_response(request, response)
-		
+
         return response
 
     def can_minify_response(self, request, response):
+        if isinstance(response, StreamingHttpResponse):
+            # Small fix attribute error on StreamingHttpResponse handling.
+            return False
+
         try:
             req_ok = request._hit_htmlmin
         except AttributeError:
