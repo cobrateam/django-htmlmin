@@ -28,15 +28,23 @@ class MarkRequestMiddleware(object):
 
 class HtmlMinifyMiddleware(object):
 
-    def __init__(self, get_response = None):
+    def __init__(self, get_response):
         self.get_response = get_response
-		
-		
+
     def __call__(self, request):
         response = self.get_response(request)
-		
-        self.process_response(request, response)
-		
+
+        if 'text/html' in response.get('Content-Type', ''):
+            try:
+                match = re.search(r'charset=([^;\s]+)', response['Content-Type'])
+                encoding = match.group(1) if match else 'utf-8'
+                response.content = str(htmlmin.minify(response.content.decode(encoding)),
+                                                  remove_comments=True,
+                                                  remove_empty_space=True,
+                                                  pre_tags=(u'pre', u'code', u'textarea'))
+            except Exception as e:
+                logger(e)
+
         return response
 
     def can_minify_response(self, request, response):
